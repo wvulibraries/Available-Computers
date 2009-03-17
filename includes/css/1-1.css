@@ -1,0 +1,90 @@
+#map-1-1 {
+	background: url("/availableComputers/images/1st.gif") no-repeat;
+	width: 517px;
+	height: 500px;
+}
+
+#halfRound1 {
+	position: absolute;
+	top: 289px;
+	left: 124px;
+}
+
+#halfRound2 {
+	position: absolute;
+	top: 289px;
+	left: 157px;
+}
+
+#halfRound3 {
+	position: absolute;
+	top: 289px;
+	left: 189px;
+}
+
+#halfRound4 {
+	position: absolute;
+	top: 289px;
+	left: 297px;
+}
+
+#halfRound5 {
+	position: absolute;
+	top: 289px;
+	left: 331px;
+}
+
+#halfRound6 {
+	position: absolute;
+	top: 289px;
+	left: 367px;
+}
+
+#halfRound7 {
+	position: absolute;
+	top: 183px;
+	left: 231px;
+}
+
+#halfRound8 {
+	position: absolute;
+	top: 148px;
+	left: 231px;
+}
+
+#halfRound9 {
+	position: absolute;
+	top: 101px;
+	left: 367px;
+}
+
+#halfRound10 {
+	position: absolute;
+	top: 101px;
+	left: 331px;
+}
+
+#halfRound11 {
+	position: absolute;
+	top: 101px;
+	left: 157px;
+}
+
+#halfRound12 {
+	position: absolute;
+	top: 101px;
+	left: 124px;
+}
+
+#halfRound13 {
+	position: absolute;
+	top: 101px;
+	left: 189px;
+}
+
+#halfRound14 {
+	position: absolute;
+	top: 101px;
+	left: 297px;
+}
+

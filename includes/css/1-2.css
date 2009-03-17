@@ -1,0 +1,17 @@
+#map-1-2 {
+	background: url("/availableComputers/images/2nd.gif") no-repeat;
+	width: 535px;
+	height: 576px;
+}
+
+#halfRound1 {
+	position: absolute;
+	top: 479px;
+	left: 245px;
+}
+
+#halfRound2 {
+	position: absolute;
+	top: 418px;
+	left: 245px;
+}

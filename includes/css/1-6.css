@@ -1,0 +1,41 @@
+#map-1-6 {
+	background: url("/availableComputers/images/6th.gif") no-repeat;
+	width: 428px;
+	height: 423px;
+}
+
+#halfRound1 {
+	position: absolute;
+	top: 358px;
+	left: 170px;
+}
+
+#halfRound2 {
+	position: absolute;
+	top: 358px;
+	left: 235px;
+}
+
+#halfRound3 {
+	position: absolute;
+	top: 325px;
+	left: 191px;
+}
+
+#halfRound4 {
+	position: absolute;
+	top: 269px;
+	left: 191px;
+}
+
+#halfRound5 {
+	position: absolute;
+	top: 108px;
+	left: 191px;
+}
+
+#halfRound6 {
+	position: absolute;
+	top: 50px;
+	left: 191px;
+}
