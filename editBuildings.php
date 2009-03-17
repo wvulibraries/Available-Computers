@@ -53,7 +53,7 @@ include($engineDir ."/engineHeader.php");
 						
 						while ($floor = mysql_fetch_assoc($innerResultArray['result'])) {
 							echo "<tr>";
-							echo "<td style=\"width: 60px\"><input type=\"checkbox\" name=\"delete_floor_".htmlSanitize($floor['id'])."\" /></td>\n";
+							echo "<td style=\"width: 60px\">&nbsp;&nbsp;<input type=\"checkbox\" name=\"delete_floor_".htmlSanitize($floor['id'])."\" /></td>\n";
 							echo "<td><input type=\"text\" name=\"floor_code_".htmlSanitize($floor['id'])."\" value=\"".htmlSanitize($floor['floor'])."\" class=\"floorCodeInput\" /></td>\n";
 							echo "<td><input type=\"text\" name=\"floor_name_".htmlSanitize($floor['id'])."\" value=\"".htmlSanitize($floor['floor_name'])."\" class=\"floorNameInput\" /></td>\n";
 							echo "</tr>";
