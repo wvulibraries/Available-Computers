@@ -21,3 +21,5 @@ function displayRows(select, display) {
 	document.getElementById(display).innerHTML = output;
 	
 }
+
+

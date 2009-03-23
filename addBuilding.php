@@ -8,6 +8,8 @@ $localVars['openDB_Database'] = "availableComputers";
 
 $accessControl = array(); //Do not delete this line
 
+$accessControl['AD']['Groups']['webAvailableComputersAdmin'] = 1;
+
 include($engineDir ."/engineHeader.php");
 ?>
 
