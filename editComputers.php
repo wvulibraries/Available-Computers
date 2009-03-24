@@ -15,7 +15,7 @@ include($engineDir ."/engineHeader.php");
 
 
 $localVars['listLabel'] = "Computers";
-$localVars['listTable'] = $dbTables["computers"];
+$localVars['listTable'] = $dbTables["computers"]["prod"];
 
 $cols = array();
 $cols[1]["table"] = "computer_name";
@@ -27,27 +27,47 @@ $cols[2]["label"] = "Building";
 $cols[3]["table"] = "floor";
 $cols[3]["label"] = "Floor";
 
-$cols[4]["table"] = "number";
-$cols[4]["label"] = "Computer Number";
+$cols[4]["table"] = "table_type";
+$cols[4]["label"] = "Table Type";
 
-$cols[5]["table"] = "table_type";
-$cols[5]["label"] = "Table Type";
+$cols[5]["table"] = "table_location";
+$cols[5]["label"] = "Table Location";
 
-$cols[6]["table"] = "table_location";
-$cols[6]["label"] = "Table Location";
+$cols[6]["table"] = "table_name";
+$cols[6]["label"] = "Table ID";
 
-$cols[7]["table"] = "table_name";
-$cols[7]["label"] = "Table Name";
+
+
+// Form Submission
+if(isset($cleanPost['MYSQL']['newSubmit'])) {
+	
+	$output = webHelper_listMultiInsert($localVars['listTable'],$localVars['listLabel'],$cols);
+
+	echo $output;
+
+}
+
+else if (isset($cleanPost['MYSQL']['updateSubmit'])) {
+	
+	$output = webhelper_listMultiUpdate($localVars['listTable'],$cols);
+	
+	echo $output;
+	
+}
+// Form Submission
+
 ?>
 
 <!-- Page Content Goes Below This Line -->
-<h3>Edit Computers</h3>
+<h2>Edit Computer Listings</h2>
 
 <?
 $output = "";
 
 foreach ($cols as $I => $col) {
+	
 	$output .= "col".$I."=\"".$col["table"]."\" col".$I."label=\"".$col["label"]."\" ";
+	
 }
 ?>
 

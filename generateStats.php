@@ -24,7 +24,7 @@ include($engineDir ."/engineHeader.php");
 	
 	<?
 	$engineVars['openDB']->sanitize = FALSE;
-	$sql = "SELECT * FROM ".dbSanitize($dbTables["buildings"])." ORDER BY name";
+	$sql = "SELECT * FROM ".dbSanitize($dbTables["buildings"]["prod"])." ORDER BY name";
 	$resultArray = $engineVars['openDB']->query($sql);
 	
 	while ($buildings = mysql_fetch_assoc($resultArray['result'])) {

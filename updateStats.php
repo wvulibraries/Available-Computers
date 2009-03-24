@@ -44,13 +44,13 @@ switch ($type) {
 if (!isnull($name)) {
 	
 	$engineVars['openDB']->sanitize = FALSE;
-	$sql = "UPDATE ".dbSanitize($dbTables["computers"])." SET availability = '$availability' WHERE computer_name = '$name'";
+	$sql = "UPDATE ".dbSanitize($dbTables["computers"]["prod"])." SET availability = '$availability' WHERE computer_name = '$name'";
 	$resultArray = $engineVars['openDB']->query($sql);
 	
 	if (!isnull($action)) {	
 		
 		$engineVars['openDB']->sanitize = FALSE;
-		$sql = "SELECT action FROM ".dbSanitize($dbTables["log"])." WHERE name = '$name' ORDER BY id DESC LIMIT 1";
+		$sql = "SELECT action FROM ".dbSanitize($dbTables["log"]["prod"])." WHERE name = '$name' ORDER BY id DESC LIMIT 1";
 		$resultArray = $engineVars['openDB']->query($sql);
 		
 		$row = mysql_fetch_assoc($resultArray['result']);
@@ -62,7 +62,7 @@ if (!isnull($name)) {
 			$prev_time = time() - 1;
 			
 			$engineVars['openDB']->sanitize = FALSE;
-			$sql = "INSERT INTO ".dbSanitize($dbTables["log"])." SET name = '$name', action = 'logoff', time = $prev_time";
+			$sql = "INSERT INTO ".dbSanitize($dbTables["log"]["prod"])." SET name = '$name', action = 'logoff', time = $prev_time";
 			$resultArray = $engineVars['openDB']->query($sql);
 			
 		}
@@ -73,14 +73,14 @@ if (!isnull($name)) {
 			$prev_time = time() - 1;
 			
 			$engineVars['openDB']->sanitize = FALSE;
-			$sql = "INSERT INTO ".dbSanitize($dbTables["log"])." SET name = '$name', action = 'login', time = $prev_time";
+			$sql = "INSERT INTO ".dbSanitize($dbTables["log"]["prod"])." SET name = '$name', action = 'login', time = $prev_time";
 			$resultArray = $engineVars['openDB']->query($sql);
 			
 		}
 		*/
 		
 		$engineVars['openDB']->sanitize = FALSE;
-		$sql = "INSERT INTO ".dbSanitize($dbTables["log"])." SET name = '$name', action = '$action', time = $time";
+		$sql = "INSERT INTO ".dbSanitize($dbTables["log"]["prod"])." SET name = '$name', action = '$action', time = $time";
 		$resultArray = $engineVars['openDB']->query($sql);
 		
 	}

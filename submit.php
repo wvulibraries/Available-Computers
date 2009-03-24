@@ -32,12 +32,12 @@ if (isset($_POST['submitAddBuilding'])) {
 
 	
 	$engineVars['openDB']->sanitize = FALSE;
-	$sql = "INSERT INTO ".dbSanitize($dbTables["buildings"])." SET name = '$name'";
+	$sql = "INSERT INTO ".dbSanitize($dbTables["buildings"]["prod"])." SET name = '$name'";
 	$resultArray = $engineVars['openDB']->query($sql);
 
 	for ($i = 1; $i <= $numFloors; $i++) {
 		$engineVars['openDB']->sanitize = FALSE;
-		$sql = "INSERT INTO ".dbSanitize($dbTables["floors"])." SET building_id = ".$resultArray['id'].", floor = '".$floor[$i]["code"]."', floor_name = '".$floor[$i]["name"]."'";
+		$sql = "INSERT INTO ".dbSanitize($dbTables["floors"]["prod"])." SET building_id = ".$resultArray['id'].", floor = '".$floor[$i]["code"]."', floor_name = '".$floor[$i]["name"]."'";
 		$innerResultArray = $engineVars['openDB']->query($sql);
 	}
 	
@@ -73,13 +73,13 @@ if (isset($_POST['submitEditBuildings'])) {
 		if (!isnull($building[$i]["delete"])) {
 			
 			$engineVars['openDB']->sanitize = FALSE;
-			$sql = "DELETE FROM ".dbSanitize($dbTables["buildings"])." WHERE building_id = ".$building[$i]["id"];
+			$sql = "DELETE FROM ".dbSanitize($dbTables["buildings"]["prod"])." WHERE building_id = ".$building[$i]["id"];
 			$resultArray = $engineVars['openDB']->query($sql);
 			
 			for ($j = 0; $j < $building[$i]["floors"]; $j++) {
 				
 				$engineVars['openDB']->sanitize = FALSE;
-				$sql = "DELETE FROM ".dbSanitize($dbTables["floors"])." WHERE building_id = ".$building[$i]["id"];
+				$sql = "DELETE FROM ".dbSanitize($dbTables["floors"]["prod"])." WHERE building_id = ".$building[$i]["id"];
 				$resultArray = $engineVars['openDB']->query($sql);
 				
 			}
@@ -89,7 +89,7 @@ if (isset($_POST['submitEditBuildings'])) {
 		else {
 			
 			$engineVars['openDB']->sanitize = FALSE;
-			$sql = "UPDATE ".dbSanitize($dbTables["buildings"])." SET name = '".$building[$i]["name"]."' WHERE building_id = ".$building[$i]["id"];
+			$sql = "UPDATE ".dbSanitize($dbTables["buildings"]["prod"])." SET name = '".$building[$i]["name"]."' WHERE building_id = ".$building[$i]["id"];
 			$resultArray = $engineVars['openDB']->query($sql);
 			
 			for ($j = 0; $j < $building[$i]["floors"]; $j++) {
@@ -97,7 +97,7 @@ if (isset($_POST['submitEditBuildings'])) {
 				if (!isnull($floor[$i][$j]["delete"])) {
 					
 					$engineVars['openDB']->sanitize = FALSE;
-					$sql = "DELETE FROM ".dbSanitize($dbTables["floors"])." WHERE id = ".$floor[$i][$j]["id"];
+					$sql = "DELETE FROM ".dbSanitize($dbTables["floors"]["prod"])." WHERE id = ".$floor[$i][$j]["id"];
 					$resultArray = $engineVars['openDB']->query($sql);
 					
 				}
@@ -105,7 +105,7 @@ if (isset($_POST['submitEditBuildings'])) {
 				else {
 					
 					$engineVars['openDB']->sanitize = FALSE;
-					$sql = "UPDATE ".dbSanitize($dbTables["floors"])." SET floor = '".$floor[$i][$j]["code"]."', floor_name = '".$floor[$i][$j]["name"]."' WHERE id = ".$floor[$i][$j]["id"];
+					$sql = "UPDATE ".dbSanitize($dbTables["floors"]["prod"])." SET floor = '".$floor[$i][$j]["code"]."', floor_name = '".$floor[$i][$j]["name"]."' WHERE id = ".$floor[$i][$j]["id"];
 					$resultArray = $engineVars['openDB']->query($sql);
 					
 				}

@@ -19,7 +19,7 @@ include($engineDir ."/engineHeader.php");
 <form method="post" action="submit.php">
 	<?
 	$engineVars['openDB']->sanitize = FALSE;
-	$sql = "SELECT * FROM ".dbSanitize($dbTables["buildings"]);
+	$sql = "SELECT * FROM ".dbSanitize($dbTables["buildings"]["prod"]);
 	$outerResultArray = $engineVars['openDB']->query($sql);
 	
 	$num_buildings = $outerResultArray['affectedRows'];
@@ -52,7 +52,7 @@ include($engineDir ."/engineHeader.php");
 						
 						<?
 						$engineVars['openDB']->sanitize = FALSE;
-						$sql = "SELECT * FROM ".dbSanitize($dbTables["floors"])." WHERE building_id = ".dbSanitize($building['building_id']);
+						$sql = "SELECT * FROM ".dbSanitize($dbTables["floors"]["prod"])." WHERE building_id = ".dbSanitize($building['building_id']);
 						$innerResultArray = $engineVars['openDB']->query($sql);
 						
 						$num_floors = $innerResultArray['affectedRows'];

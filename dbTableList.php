@@ -1,8 +1,8 @@
 <?php
 $dbTables = array();
 
-$dbTables["buildings"]	= "buildings";
-$dbTables["floors"]			= "floors";
-$dbTables["computers"]	= "computers";
-$dbTables["log"]				= "log";
+$dbTables["buildings"]["prod"]	= "buildings";
+$dbTables["floors"]["prod"]			= "floors";
+$dbTables["computers"]["prod"]	= "computers";
+$dbTables["log"]["prod"]				= "log";
 ?>

@@ -20,7 +20,7 @@ $stats = array();
 
 
 $engineVars['openDB']->sanitize = FALSE;
-$sql = "SELECT * FROM ".dbSanitize($dbTables["buildings"])." WHERE building_id = ".dbSanitize($building)." LIMIT 1";
+$sql = "SELECT * FROM ".dbSanitize($dbTables["buildings"]["prod"])." WHERE building_id = ".dbSanitize($building)." LIMIT 1";
 $resultArray = $engineVars['openDB']->query($sql);
 
 $row = mysql_fetch_assoc($resultArray['result']);
@@ -35,7 +35,7 @@ echo "<h3>".$hours[$sHour]." on ".$sMonth."/".$sDate."/".$sYear." through ".$hou
 
 // populate results array
 $engineVars['openDB']->sanitize = FALSE;
-$sql = "SELECT l.* FROM ".dbSanitize($dbTables["log"])." AS l LEFT JOIN ".dbSanitize($dbTables["computers"])." AS c ON l.name = c.computer_name WHERE time >= $sTimestamp AND time <= $eTimestamp = ".dbSanitize($building)." AND building = ".dbSanitize($building);
+$sql = "SELECT l.* FROM ".dbSanitize($dbTables["log"]["prod"])." AS l LEFT JOIN ".dbSanitize($dbTables["computers"]["prod"])." AS c ON l.name = c.computer_name WHERE time >= $sTimestamp AND time <= $eTimestamp = ".dbSanitize($building)." AND building = ".dbSanitize($building);
 $resultArray = $engineVars['openDB']->query($sql);
 
 $numResults = $resultArray['affectedRows'];
@@ -51,7 +51,7 @@ for ($i = 0; $row = mysql_fetch_assoc($resultArray['result']); $i++) {
 
 // calc total computers
 $engineVars['openDB']->sanitize = FALSE;
-$sql = "SELECT * FROM ".dbSanitize($dbTables["computers"])." WHERE building = ".dbSanitize($building);
+$sql = "SELECT * FROM ".dbSanitize($dbTables["computers"]["prod"])." WHERE building = ".dbSanitize($building);
 $resultArray = $engineVars['openDB']->query($sql);
 
 $numComputers = $resultArray['affectedRows'];

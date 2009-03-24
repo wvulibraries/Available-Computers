@@ -28,7 +28,7 @@ if (!file_exists("includes/css/$building-$floor.css")) {
 
 <?
 $engineVars['openDB']->sanitize = FALSE;
-$sql = "SELECT name, floor_name FROM ".dbSanitize($dbTables["buildings"])." AS b LEFT JOIN ".dbSanitize($dbTables["floors"])." AS f ON b.building_id = f.building_id WHERE b.building_id = '$building' AND f.floor = '$floor'";
+$sql = "SELECT name, floor_name FROM ".dbSanitize($dbTables["buildings"]["prod"])." AS b LEFT JOIN ".dbSanitize($dbTables["floors"]["prod"])." AS f ON b.building_id = f.building_id WHERE b.building_id = '$building' AND f.floor = '$floor'";
 $resultArray = $engineVars['openDB']->query($sql);
 
 $row = mysql_fetch_assoc($resultArray['result']);
@@ -40,7 +40,7 @@ echo "<h2>".$row['name']." - ".$row['floor_name']."</h2>\n";
 	
 	<?
 	$engineVars['openDB']->sanitize = FALSE;
-	$sql = "SELECT DISTINCT table_name, table_type FROM ".dbSanitize($dbTables["computers"])." WHERE building = '$building' AND floor = '$floor'";
+	$sql = "SELECT DISTINCT table_name, table_type FROM ".dbSanitize($dbTables["computers"]["prod"])." WHERE building = '$building' AND floor = '$floor'";
 	$outerResultArray = $engineVars['openDB']->query($sql);
 
 	while ($table = mysql_fetch_assoc($outerResultArray['result'])) {
@@ -48,7 +48,7 @@ echo "<h2>".$row['name']." - ".$row['floor_name']."</h2>\n";
 		echo "<div class=\"".$table['table_type']."\" id=\"".$table['table_name']."\">\n";
 		
 		$engineVars['openDB']->sanitize = FALSE;
-		$sql = "SELECT number, table_location, availability, computer_name FROM ".dbSanitize($dbTables["computers"])." WHERE building = '$building' AND floor = '$floor' AND table_name = '".$table['table_name']."'";
+		$sql = "SELECT table_location, availability, computer_name FROM ".dbSanitize($dbTables["computers"]["prod"])." WHERE building = '$building' AND floor = '$floor' AND table_name = '".$table['table_name']."'";
 		$innerResultArray = $engineVars['openDB']->query($sql);
 		
 		while ($row = mysql_fetch_assoc($innerResultArray['result'])) {
