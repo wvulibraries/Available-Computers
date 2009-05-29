@@ -1,13 +1,13 @@
 <?
 isset($_POST['library'])	? $building = htmlSanitize($_POST['library'])	: $building = NULL;
 isset($_POST['sMonth'])		? $sMonth = htmlSanitize($_POST['sMonth'])		: $sMonth = NULL;
-isset($_POST['sDate'])		? $sDate = htmlSanitize($_POST['sDate'])			: $sDate = NULL;
-isset($_POST['sYear'])		? $sYear = htmlSanitize($_POST['sYear'])			: $sYear = NULL;
-isset($_POST['sHour'])		? $sHour = htmlSanitize($_POST['sHour'])			: $sHour = NULL;
+isset($_POST['sDate'])		? $sDate = htmlSanitize($_POST['sDate'])		: $sDate = NULL;
+isset($_POST['sYear'])		? $sYear = htmlSanitize($_POST['sYear'])		: $sYear = NULL;
+isset($_POST['sHour'])		? $sHour = htmlSanitize($_POST['sHour'])		: $sHour = NULL;
 isset($_POST['eMonth'])		? $eMonth = htmlSanitize($_POST['eMonth'])		: $eMonth = NULL;
-isset($_POST['eDate'])		? $eDate = htmlSanitize($_POST['eDate'])			: $eDate = NULL;
-isset($_POST['eYear'])		? $eYear = htmlSanitize($_POST['eYear'])			: $eYear = NULL;
-isset($_POST['eHour'])		? $eHour = htmlSanitize($_POST['eHour'])			: $eHour = NULL;
+isset($_POST['eDate'])		? $eDate = htmlSanitize($_POST['eDate'])		: $eDate = NULL;
+isset($_POST['eYear'])		? $eYear = htmlSanitize($_POST['eYear'])		: $eYear = NULL;
+isset($_POST['eHour'])		? $eHour = htmlSanitize($_POST['eHour'])		: $eHour = NULL;
 
 $sTimestamp = mktime($sHour, 0, 0, $sMonth, $sDate, $sYear);
 $eTimestamp = mktime($eHour, 0, 0, $eMonth, $eDate, $eYear);
@@ -60,133 +60,162 @@ $numComputers = $resultArray['affectedRows'];
 // create array of computers
 $computers = array();
 while ($row = mysql_fetch_assoc($resultArray['result'])) {
-	$computers[] = $row['computer_name'];
+	$computers['name'] = $row['computer_name'];
+	$computers['os'] = $row['os'];
+	$computers['func'] = $row['function'];
 }
 // create array of computers
 
+$os_array = array("Windows", "Mac");
+$func_array = array("Normal", "Multimedia");
 
-
-// count Total Logins/Logoffs
-$stats['logins']['total'] = 0;
-$stats['logoffs']['total'] = 0;
-
-foreach ($logs as $log) {
-	
-	if ($log['action'] == 'login') {
+foreach( $os_array as $os ) {
+	foreach( $func_array as $func ) {
 		
-		$stats['logins']['total']++;
+		// count Total Logins/Logoffs
+		$stats[$os]['logins']['total'] = 0;
+		$stats[$os]['logoffs']['total'] = 0;
 		
-	}
-	
-	else if ($log['action'] == 'logoff') {
-		
-		$stats['logoffs']['total']++;
-		
-	}
-	
-}
-
-echo "Total Logins: ".$stats['logins']['total']."<br />\n";
-echo "Total Logoffs: ".$stats['logoffs']['total']."<br />\n";
-// count Total Logins/Logoffs
-
-
-
-// count Logins/Logoffs by hour
-for ($hour = 0; $hour <= 23; $hour++) {
-	
-	$stats['logins'][$hour] = 0;
-	$stats['logoffs'][$hour] = 0;
-	
-	foreach ($logs as $log) {
-		
-		if ($hour == date("G",$log['time'])) {
+		foreach ($logs as $log) {
 			
 			if ($log['action'] == 'login') {
 				
-				$stats['logins'][$hour]++;
+				$stats[$os]['logins']['total']++;
 				
 			}
 			
 			else if ($log['action'] == 'logoff') {
 				
-				$stats['logoffs'][$hour]++;
+				$stats[$os]['logoffs']['total']++;
 				
 			}
 			
 		}
+		// count Total Logins/Logoffs
 		
-	}
-	
-}
-// count Logins/Logoffs by hour
-
-
-
-// calc percent occuppied
-for ($hour = 0; $hour <= 23; $hour++) {
-	
-	$stats['occuppied'][$hour] = 0;
-	
-	foreach ($computers as $computer) {
 		
-		foreach ($logs as $log) {
+		
+		// count Logins/Logoffs by hour
+		for ($hour = 0; $hour <= 23; $hour++) {
 			
-			if ($hour == date("G",$log['time']) && $log['name'] == $computer) {
+			$stats[$os][$func]['logins'][$hour] = 0;
+			$stats[$os][$func]['logoffs'][$hour] = 0;
+			
+			foreach ($logs as $log) {
 				
-				if ($log['action'] == 'login') {
+				if ($hour == date("G",$log['time'])) {
 					
-					$stats['occuppied'][$hour]++;
-					break;
+					if ($log['action'] == 'login') {
+						
+						$stats[$os][$func]['logins'][$hour]++;
+						
+					}
 					
-				}
-				
-				else if ($log['action'] == 'logoff') {
-					
-					$stats['occuppied'][$hour]++;
-					break;
+					else if ($log['action'] == 'logoff') {
+						
+						$stats[$os][$func]['logoffs'][$hour]++;
+						
+					}
 					
 				}
 				
 			}
 			
 		}
+		// count Logins/Logoffs by hour
 		
+		
+		
+		// calc percent occuppied
+		for ($hour = 0; $hour <= 23; $hour++) {
+			
+			$stats[$os][$func]['occuppied'][$hour] = 0;
+			
+			foreach ($computers['name'] as $computer) {
+				
+				foreach ($logs as $log) {
+					
+					if ($computers['os'] == $os && $computers['func'] == $func) {
+						
+						if ($hour == date("G",$log['time']) && $log['name'] == $computer) {
+							
+							if ($log['action'] == 'login') {
+								
+								$stats[$os][$func]['occuppied'][$hour]++;
+								break;
+								
+							}
+							
+							else if ($log['action'] == 'logoff') {
+								
+								$stats[$os][$func]['occuppied'][$hour]++;
+								break;
+								
+							}
+							
+						}
+						
+					}
+				}
+				
+			}
+			
+		}
+		// calc percent occuppied
 	}
-	
 }
-// calc percent occuppied
 
 echo "<pre>";
 //print_r($stats);
 echo "</pre>";
 
+
+echo "Total Logins: ".($stats[$os_array[0]]['logins']['total'] + $stats[$os_array[1]]['logins']['total'])."<br />\n";
+echo "Total Logoffs: ".($stats[$os_array[0]]['logoffs']['total'] + $stats[$os_array[0]]['logoffs']['total'])."<br />\n";
+
 // display stats
-echo "<br /><br />\n";
-
-echo "<table class=\"simple\">\n";
-
-echo "<tr>\n";
-echo "<th>Hour</th>\n";
-echo "<th>Logins</th>\n";
-echo "<th>Logoffs</th>\n";
-echo "<th>Percent Occupied</th>\n";
-echo "</tr>\n";
-
-for ($hour = 0; $hour <= 23; $hour++) {
+foreach( $os_array as $os ) {
+	echo "<br /><br />\n";
 	
-	$percent = round(($stats['occuppied'][$hour] / count($computers)),2);
+	echo "<table class=\"simple\">\n";
 	
 	echo "<tr>\n";
-	echo "<td>".$hour."</td>\n";
-	echo "<td>".$stats['logins'][$hour]."</td>\n";
-	echo "<td>".$stats['logoffs'][$hour]."</td>\n";
-	echo "<td>".$percent."%</td>\n";
+	echo "<th colspan=\"7\">$os</th>";
 	echo "</tr>\n";
+	
+	echo "<tr>\n";
+	echo "<th rowspan=\"2\">Hour</th>\n";
+	echo "<th colspan=\"3\">$func_array[0]</th>";
+	echo "<th colspan=\"3\">$func_array[1]</th>";
+	echo "</tr>\n";
+	
+	echo "<tr>\n";
+	echo "<th>Logins</th>\n";
+	echo "<th>Logoffs</th>\n";
+	echo "<th>% Occupied</th>\n";
+	echo "<th>Logins</th>\n";
+	echo "<th>Logoffs</th>\n";
+	echo "<th>% Occupied</th>\n";
+	echo "</tr>\n";
+	
+	for ($hour = 0; $hour <= 23; $hour++) {
+		
+		$percent[$func_array[0]] = round(($stats[$os][$func_array[0]]['occuppied'][$hour] / count($computers['name'])),2);
+		$percent[$func_array[1]] = round(($stats[$os][$func_array[1]]['occuppied'][$hour] / count($computers['name'])),2);
+		
+		echo "<tr>\n";
+		echo "<td>".$hour."</td>\n";
+		echo "<td>".$stats[$os][$func_array[0]]['logins'][$hour]."</td>\n";
+		echo "<td>".$stats[$os][$func_array[0]]['logoffs'][$hour]."</td>\n";
+		echo "<td>".$percent[$func_array[0]]."%</td>\n";
+		echo "<td>".$stats[$os][$func_array[1]]['logins'][$hour]."</td>\n";
+		echo "<td>".$stats[$os][$func_array[1]]['logoffs'][$hour]."</td>\n";
+		echo "<td>".$percent[$func_array[1]]."%</td>\n";
+		echo "</tr>\n";
 
+	}
+
+	echo "</table>\n";
+	// display stats
 }
-
-echo "</table>\n";
-// display stats
-
 ?>

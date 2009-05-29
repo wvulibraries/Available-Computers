@@ -21,20 +21,26 @@ $cols = array();
 $cols[1]["table"] = "computer_name";
 $cols[1]["label"] = "Name";
 
-$cols[2]["table"] = "building";
-$cols[2]["label"] = "Building";
+$cols[2]["table"] = "os";
+$cols[2]["label"] = "OS";
 
-$cols[3]["table"] = "floor";
-$cols[3]["label"] = "Floor";
+$cols[3]["table"] = "function";
+$cols[3]["label"] = "Function";
 
-$cols[4]["table"] = "table_type";
-$cols[4]["label"] = "Table Type";
+$cols[4]["table"] = "building";
+$cols[4]["label"] = "Building";
 
-$cols[5]["table"] = "table_location";
-$cols[5]["label"] = "Table Location";
+$cols[5]["table"] = "floor";
+$cols[5]["label"] = "Floor";
 
-$cols[6]["table"] = "table_name";
-$cols[6]["label"] = "Table ID";
+$cols[6]["table"] = "table_type";
+$cols[6]["label"] = "Table Type";
+
+$cols[7]["table"] = "table_location";
+$cols[7]["label"] = "Table Loc.";
+
+$cols[8]["table"] = "table_name";
+$cols[8]["label"] = "Table ID";
 
 
 

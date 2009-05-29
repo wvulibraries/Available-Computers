@@ -25,6 +25,17 @@ table.simple th {
 
 
 #computers_table input{
-	width: 83px;
+	width: 50px;
 }
 
+#computers_table .computer_name {
+	width: 80px;
+}
+
+#computers_table .table_type {
+	width: 90px;
+}
+
+#computers_table .table_name {
+	width: 75px;
+}
