@@ -33,7 +33,7 @@
 				<li><a href="addBuilding.php" alt="Add a Building">Add Building</a></li>
 				<li><a href="editBuildings.php" alt="Edit Buildings">Edit Buildings</a></li>
 				<li><a href="editComputers.php" alt="Edit Computer Listing">Computers</a></li>
-				<li><a href="generateStats.php" alt="View Usage Statistics">View Usage Statistics</a></li>
+				<li><a href="/stats/public/generateStats.php" alt="View Usage Statistics">View Usage Statistics</a></li>
 				<li><a href="<?= $engineVars['logoutPage'] ?>">Logout</a></li>
 			</ul>
 		</li>
