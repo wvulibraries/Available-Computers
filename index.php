@@ -2,9 +2,7 @@
 $engineDir = "/home/library/phpincludes/engineCMS/engine";
 
 $localVars = array(); //Do not delete this line
-
 $localVars['pageTitle'] = "Available Computers";
-$localVars['openDB_Database'] = "availableComputers";
 
 $accessControl = array(); //Do not delete this line
 

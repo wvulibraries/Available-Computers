@@ -3,13 +3,10 @@
 $engineDir = "/home/library/phpincludes/engineCMS/engine";
 
 $localVars = array(); //Do not delete this line
-
 $localVars['pageTitle'] = "Available Computers";
-$localVars['openDB_Database'] = "availableComputers";
 $localVars['exclude_template'] = TRUE;
 
 $accessControl = array(); //Do not delete this line
-
 $accessControl['AD']['Groups']['webAvailableComputersAdmin'] = 1;
 
 include($engineDir ."/engineHeader.php");
