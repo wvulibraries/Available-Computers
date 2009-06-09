@@ -17,7 +17,7 @@
 		if ($resultArray2['affectedRows'] > 0) {
 			echo "<ul>";
 			while ($floors = mysql_fetch_assoc($resultArray2['result'])) {
-				echo "<li><a href=\"index.php?building=".$names['building_id']."&floor=".$floors['floor']."\">".htmlSanitize($floors['floor_name'])."</a></li>";
+				echo "<li><a href=\"".$engineVars['WVULSERVER']."/availableComputers/index.php?building=".$names['building_id']."&floor=".$floors['floor']."\">".htmlSanitize($floors['floor_name'])."</a></li>";
 			}
 			echo "</ul>";
 		}
@@ -30,10 +30,10 @@
 		<li>
 			Administrative Tools
 			<ul>
-				<li><a href="addBuilding.php" alt="Add a Building">Add Building</a></li>
-				<li><a href="editBuildings.php" alt="Edit Buildings">Edit Buildings</a></li>
-				<li><a href="editComputers.php" alt="Edit Computer Listing">Computers</a></li>
-				<li><a href="/stats/publiccomputers/" alt="View Usage Statistics">View Usage Statistics</a></li>
+				<li><a href="<?= $engineVars['WVULSERVER'] ?>/availableComputers/addBuilding.php" alt="Add a Building">Add Building</a></li>
+				<li><a href="<?= $engineVars['WVULSERVER'] ?>/availableComputers/editBuildings.php" alt="Edit Buildings">Edit Buildings</a></li>
+				<li><a href="<?= $engineVars['WVULSERVER'] ?>/availableComputers/editComputers.php" alt="Edit Computer Listing">Computers</a></li>
+				<li><a href="<?= $engineVars['WVULSERVER'] ?>/stats/publiccomputers/" alt="View Usage Statistics">View Usage Statistics</a></li>
 				<li><a href="<?= $engineVars['logoutPage'] ?>">Logout</a></li>
 			</ul>
 		</li>
