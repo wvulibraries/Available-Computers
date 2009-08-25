@@ -63,7 +63,7 @@ echo "<h2>".$row['name']." - ".$row['floor_name']."</h2>\n";
 					$color = "r";
 				}
 				
-				echo "<img class=\"".$row['table_location']."\" alt=\"".$row['computer_name']."\" src=\"/availableComputers/images/".$table['table_type']."/".$color."-".$row['table_location'].".gif\" />\n";
+				echo "<img class=\"".$row['table_location']."\" alt=\"".$row['computer_name']."\" title=\"".$row['computer_name']."\" src=\"/availableComputers/images/".$table['table_type']."/".$color."-".$row['table_location'].".gif\" />\n";
 				
 			}
 			
