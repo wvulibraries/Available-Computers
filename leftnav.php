@@ -17,7 +17,7 @@
 		if ($resultArray2['affectedRows'] > 0) {
 			echo "<ul>";
 			while ($floors = mysql_fetch_assoc($resultArray2['result'])) {
-				echo "<li><a href=\"".$engineVars['WVULSERVER']."/availableComputers/index.php?building=".$names['building_id']."&floor=".$floors['floor']."\">".htmlSanitize($floors['floor_name'])."</a></li>";
+				echo "<li><a href=\"".$engineVars['WVULSERVER']."/availableComputers/index.php?building=".$names['building_id']."&amp;floor=".$floors['floor']."\">".htmlSanitize($floors['floor_name'])."</a></li>";
 			}
 			echo "</ul>";
 		}
