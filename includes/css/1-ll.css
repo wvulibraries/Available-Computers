@@ -1,31 +1,55 @@
 #map-1-ll {
-	background: url("/availableComputers/images/ll.gif") no-repeat;
+	background: url("/availableComputers/images/1-ll.gif") no-repeat;
 	width: 549px;
 	height: 557px;
 }
 
-#triple1 {
+#frontTriple1 {
 	position: absolute;
 	top: 324px;
 	left: 152px;
 }
 
-#triple2 {
+#frontTriple2 {
 	position: absolute;
 	top: 324px;
 	left: 189px;
 }
 
-#triple3 {
+#frontTriple3 {
 	position: absolute;
 	top: 324px;
 	left: 333px;
 }
 
-#triple4 {
+#frontTriple4 {
 	position: absolute;
 	top: 324px;
 	left: 370px;
+}
+
+#backTable1 {
+	position: absolute;
+	top: 179px;
+	left: 150px;
+}
+
+#backTable2 {
+	position: absolute;
+	top: 204px;
+	left: 192px;
+}
+
+#backTable3 {
+	position: absolute;
+	top: 130px;
+	left: 150px;
+}
+
+#backTable4 {
+	position: absolute;
+	top: 130px;
+	left: 193px;
 }
 
 #classroom1 {

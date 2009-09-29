@@ -30,9 +30,11 @@ $sql = "SELECT name, floor_name FROM ".dbSanitize($dbTables["buildings"]["prod"]
 $resultArray = $engineVars['openDB']->query($sql);
 
 $row = mysql_fetch_assoc($resultArray['result']);
-
-echo "<h2>".$row['name']." - ".$row['floor_name']."</h2>\n";
 ?>
+
+<h2><?= $row['name']." - ".$row['floor_name'] ?></h2>
+
+<br />
 
 <div id="map-<?= $building."-".$floor ?>" class="imgContainer">
 	

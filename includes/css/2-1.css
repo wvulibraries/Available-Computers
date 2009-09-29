@@ -1,0 +1,65 @@
+#map-2-1 {
+	background: url("/availableComputers/images/2-1.gif") no-repeat;
+	width: 565px;
+	height: 486px;
+}
+
+#carrel1 {
+	position: absolute;
+	top: 336px;
+	left: 180px;
+}
+
+#carrel2 {
+	position: absolute;
+	top: 286px;
+	left: 180px;
+}
+
+#carrel3 {
+	position: absolute;
+	top: 248px;
+	left: 180px;
+}
+
+#carrel4 {
+	position: absolute;
+	top: 336px;
+	left: 223px;
+}
+
+#carrel5 {
+	position: absolute;
+	top: 286px;
+	left: 223px;
+}
+
+#carrel6 {
+	position: absolute;
+	top: 248px;
+	left: 223px;
+}
+
+#round1 {
+	position: absolute;
+	top: 306px;
+	left: 383px;
+}
+
+#round2 {
+	position: absolute;
+	top: 228px;
+	left: 383px;
+}
+
+#round3 {
+	position: absolute;
+	top: 228px;
+	left: 306px;
+}
+
+#round4 {
+	position: absolute;
+	top: 149px;
+	left: 306px;
+}
