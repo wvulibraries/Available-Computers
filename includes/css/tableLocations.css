@@ -404,6 +404,26 @@
 
 
 
+.evlclassroom .l {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.evlclassroom .m {
+	position: absolute;
+	top: 0px;
+	left: 9px;
+}
+
+.evlclassroom .r {
+	position: absolute;
+	top: 0px;
+	left: 18px;
+}
+
+
+
 
 
 .buildingNameInput {
