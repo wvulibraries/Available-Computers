@@ -23,7 +23,7 @@ $pubDate = date('r');
 		
 	<?
 	$engineVars['openDB']->sanitize = FALSE;
-	$sql = "SELECT * FROM ".dbSanitize($dbTables["computers"]["prod"])." ORDER BY computer_name";
+	$sql = "SELECT * FROM ".dbSanitize($dbTables["computers"]["prod"])." ORDER BY building, floor, computer_name";
 	$resultArray = $engineVars['openDB']->query($sql);
 	
 	while ($row = mysql_fetch_assoc($resultArray['result'])) {
