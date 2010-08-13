@@ -1,41 +1,41 @@
 #map-1-6 {
 	background: url("/availableComputers/images/1-6.gif") no-repeat;
-	width: 428px;
-	height: 423px;
+	width: 576px;
+	height: 756px;
 }
 
 #halfRound1 {
 	position: absolute;
-	top: 358px;
-	left: 170px;
+	top: 610px;
+	left: 252px;
 }
 
 #halfRound2 {
 	position: absolute;
-	top: 358px;
-	left: 235px;
+	top: 610px;
+	left: 302px;
 }
 
 #halfRound3 {
 	position: absolute;
-	top: 325px;
-	left: 191px;
+	top: 559px;
+	left: 266px;
 }
 
 #halfRound4 {
 	position: absolute;
-	top: 269px;
-	left: 191px;
+	top: 512px;
+	left: 266px;
 }
 
 #halfRound5 {
 	position: absolute;
-	top: 108px;
-	left: 191px;
+	top: 290px;
+	left: 266px;
 }
 
 #halfRound6 {
 	position: absolute;
-	top: 50px;
-	left: 191px;
+	top: 219px;
+	left: 266px;
 }
