@@ -1,0 +1,126 @@
+#map-2-1 {
+	background: url("/availableComputers/images/2-1.gif") no-repeat;
+	width: 565px;
+	height: 486px;
+}
+
+#carrel1 {
+	position: absolute;
+	top: 336px;
+	left: 180px;
+}
+
+#carrel2 {
+	position: absolute;
+	top: 286px;
+	left: 180px;
+}
+
+#carrel3 {
+	position: absolute;
+	top: 248px;
+	left: 180px;
+}
+
+#carrel4 {
+	position: absolute;
+	top: 336px;
+	left: 223px;
+}
+
+#carrel5 {
+	position: absolute;
+	top: 286px;
+	left: 223px;
+}
+
+#carrel6 {
+	position: absolute;
+	top: 248px;
+	left: 223px;
+}
+
+#round1 {
+	position: absolute;
+	top: 306px;
+	left: 383px;
+}
+
+#round2 {
+	position: absolute;
+	top: 228px;
+	left: 383px;
+}
+
+#round3 {
+	position: absolute;
+	top: 228px;
+	left: 306px;
+}
+
+#round4 {
+	position: absolute;
+	top: 149px;
+	left: 306px;
+}
+
+#classroom1 {
+	position: absolute;
+	top: 344px;
+	left: 491px;
+}
+
+#classroom2 {
+	position: absolute;
+	top: 344px;
+	left: 528px;
+}
+
+#classroom3 {
+	position: absolute;
+	top: 367px;
+	left: 491px;
+}
+
+#classroom4 {
+	position: absolute;
+	top: 367px;
+	left: 528px;
+}
+
+#classroom5 {
+	position: absolute;
+	top: 389px;
+	left: 491px;
+}
+
+#classroom6 {
+	position: absolute;
+	top: 389px;
+	left: 528px;
+}
+
+#classroom7 {
+	position: absolute;
+	top: 421px;
+	left: 491px;
+}
+
+#classroom8 {
+	position: absolute;
+	top: 421px;
+	left: 528px;
+}
+
+#classroom9 {
+	position: absolute;
+	top: 445px;
+	left: 491px;
+}
+
+#classroom10 {
+	position: absolute;
+	top: 445px;
+	left: 528px;
+}
+
