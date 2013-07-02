@@ -10,8 +10,7 @@ localVars::add('listTable', 'computers');
 
 
 function listFields($null=FALSE) {
-
-	global $engine;
+	$engine = EngineAPI::singleton();
 
 	$listObj = new listManagement($engine,localVars::get('listTable'));
 

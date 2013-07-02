@@ -10,8 +10,7 @@ localVars::add('listTable', 'buildings');
 
 
 function listFields() {
-
-	global $engine;
+	$engine = EngineAPI::singleton();
 
 	$listObj = new listManagement($engine,localVars::get('listTable'));
 

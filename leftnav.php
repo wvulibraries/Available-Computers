@@ -1,5 +1,3 @@
-<?php global $engine ?>
-
 <ul>
 	<?php
 	$sql = sprintf("SELECT * FROM `buildings` ORDER BY name");
