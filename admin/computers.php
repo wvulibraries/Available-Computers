@@ -29,8 +29,7 @@ function listFields($null=FALSE) {
 	$options['dupes'] = TRUE;
 
 	$sql = sprintf("SELECT * FROM `operatingSystems` ORDER BY name");
-	$engine->openDB->sanitize = FALSE;
-	$sqlResult                = $engine->openDB->query($sql);
+	$sqlResult = $engine->openDB->query($sql);
 
 	if ($null === TRUE) {
 		$tmp['value']         = "";
@@ -53,8 +52,7 @@ function listFields($null=FALSE) {
 	$options['dupes'] = TRUE;
 
 	$sql = sprintf("SELECT * FROM `functions` ORDER BY name");
-	$engine->openDB->sanitize = FALSE;
-	$sqlResult                = $engine->openDB->query($sql);
+	$sqlResult = $engine->openDB->query($sql);
 
 	if ($null === TRUE) {
 		$tmp['value']         = "";
@@ -77,8 +75,7 @@ function listFields($null=FALSE) {
 	$options['dupes'] = TRUE;
 
 	$sql = sprintf("SELECT * FROM `buildings` ORDER BY name");
-	$engine->openDB->sanitize = FALSE;
-	$sqlResult                = $engine->openDB->query($sql);
+	$sqlResult = $engine->openDB->query($sql);
 
 	if ($null === TRUE) {
 		$tmp['value']         = "";
@@ -101,8 +98,7 @@ function listFields($null=FALSE) {
 	$options['dupes'] = TRUE;
 
 	$sql = sprintf("SELECT * FROM `floors` ORDER BY floor_name");
-	$engine->openDB->sanitize = FALSE;
-	$sqlResult                = $engine->openDB->query($sql);
+	$sqlResult = $engine->openDB->query($sql);
 
 	if ($null === TRUE) {
 		$tmp['value']         = "";
@@ -125,8 +121,7 @@ function listFields($null=FALSE) {
 	$options['dupes'] = TRUE;
 
 	$sql = sprintf("SELECT * FROM `tableTypes` ORDER BY name");
-	$engine->openDB->sanitize = FALSE;
-	$sqlResult                = $engine->openDB->query($sql);
+	$sqlResult = $engine->openDB->query($sql);
 
 	if ($null === TRUE) {
 		$tmp['value']         = "";

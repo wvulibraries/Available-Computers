@@ -26,8 +26,7 @@ $sql = sprintf("SELECT DISTINCT computers.table_name, tableTypes.name FROM `comp
 	$engine->openDB->escape($building),
 	$engine->openDB->escape($floor)
 	);
-$engine->openDB->sanitize = FALSE;
-$sqlResult                = $engine->openDB->query($sql);
+$sqlResult = $engine->openDB->query($sql);
 
 if (!$sqlResult['result']) {
 	$errorMsg .= webHelper_errorMsg("Failed to retrieve tables.");
@@ -42,8 +41,7 @@ else {
 			$engine->openDB->escape($floor),
 			$engine->openDB->escape($table['table_name'])
 			);
-		$engine->openDB->sanitize = FALSE;
-		$sqlResult2               = $engine->openDB->query($sql);
+		$sqlResult2 = $engine->openDB->query($sql);
 
 		if (!$sqlResult2['result']) {
 			$errorMsg .= webHelper_errorMsg("Failed to retrieve computers.");

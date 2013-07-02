@@ -21,8 +21,7 @@ $pubDate = date('r');
 
 	<?php
 	$sql = sprintf("SELECT * FROM `computers` ORDER BY building,floor,computer_name");
-	$engine->openDB->sanitize = FALSE;
-	$sqlResult                = $engine->openDB->query($sql);
+	$sqlResult = $engine->openDB->query($sql);
 
 	if ($sqlResult['result']) {
 		while ($row = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
@@ -39,17 +38,15 @@ $pubDate = date('r');
 			$sql = sprintf("SELECT name FROM `buildings` WHERE building_id='%s'",
 				$engine->openDB->escape($row['building'])
 				);
-			$engine->openDB->sanitize = FALSE;
-			$sqlResult2               = $engine->openDB->query($sql);
-			$building                 = mysql_fetch_array($sqlResult2['result'], MYSQL_ASSOC);
+			$sqlResult2 = $engine->openDB->query($sql);
+			$building= ($sqlResult2['result'], MYSQL_ASSOC);
 
 			$sql = sprintf("SELECT floor_name FROM `floors` WHERE floor='%s'",
 				$engine->openDB->escape($row['building']),
 				$engine->openDB->escape($row['floor'])
 				);
-			$engine->openDB->sanitize = FALSE;
-			$sqlResult2               = $engine->openDB->query($sql);
-			$floor                    = mysql_fetch_array($sqlResult2['result'], MYSQL_ASSOC);
+			$sqlResult2 = $engine->openDB->query($sql);
+			$floor= ($sqlResult2['result'], MYSQL_ASSOC);
 
 			$row['building'] = $building['name'];
 			$row['floor'] = $floor['floor_name'];

@@ -3,8 +3,7 @@
 <ul>
 	<?php
 	$sql = sprintf("SELECT * FROM `buildings` ORDER BY name");
-	$engine->openDB->sanitize = FALSE;
-	$sqlResult                = $engine->openDB->query($sql);
+	$sqlResult = $engine->openDB->query($sql);
 
 	if ($sqlResult['result']) {
 		while ($names = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
@@ -14,8 +13,7 @@
 			$sql = sprintf("SELECT * FROM `buildingFloors` LEFT JOIN `floors` ON floors.id=buildingFloors.floor_id WHERE buildingFloors.building_id='%s' ORDER BY buildingFloors.id",
 				$engine->openDB->escape($names['building_id'])
 				);
-			$engine->openDB->sanitize = FALSE;
-			$sqlResult2               = $engine->openDB->query($sql);
+			$sqlResult2 = $engine->openDB->query($sql);
 
 			if ($sqlResult2['result']) {
 				print "<ul>";

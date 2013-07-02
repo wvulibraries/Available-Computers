@@ -42,8 +42,7 @@ function listFields() {
 			$engine->cleanGet['MYSQL']['id']
 		);
 
-		$engine->openDB->sanitize = FALSE;
-		$sqlResult                = $engine->openDB->query($sql);
+		$sqlResult = $engine->openDB->query($sql);
 
 		$tempList = array();
 		while ($row = mysql_fetch_array($sqlResult['result'],  MYSQL_ASSOC)) {
