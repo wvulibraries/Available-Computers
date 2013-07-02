@@ -6,7 +6,7 @@ include("adminHeader.php");
 
 <?php
 $errorMsg = NULL;
-$engine->localVars("listTable",$engine->dbTables("buildings"));
+$engine->localVars("listTable",'buildings');
 
 function listFields() {
 
@@ -30,16 +30,15 @@ function listFields() {
 	$options['type']  = "multiselect";
 
 	$options['options'] = array();
-	$options['options']['valueTable']        = $engine->dbTables("floors");
+	$options['options']['valueTable']        = 'floors';
 	$options['options']['valueDisplayField'] = "floor_name";
 	$options['options']['valueDisplayID']    = "id";
 
-	$options['options']['linkTable']         = $engine->dbTables("buildingFloors");
+	$options['options']['linkTable']         = 'buildingFloors';
 	$options['options']['linkValueField']    = "floor_id";
 	$options['options']['linkObjectField']   = "building_id";
 
-		$sql = sprintf("SELECT floor_id FROM %s WHERE building_id='%s'",
-			$engine->openDB->escape($engine->dbTables("buildingFloors")),
+		$sql = sprintf("SELECT floor_id FROM `buildingFloors` WHERE building_id='%s'",
 			$engine->cleanGet['MYSQL']['id']
 		);
 

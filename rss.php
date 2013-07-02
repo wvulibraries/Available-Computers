@@ -20,9 +20,7 @@ $pubDate = date('r');
 	<language>en-us</language>
 
 	<?php
-	$sql = sprintf("SELECT * FROM %s ORDER BY building,floor,computer_name",
-		$engine->openDB->escape($engine->dbTables("computers"))
-		);
+	$sql = sprintf("SELECT * FROM `computers` ORDER BY building,floor,computer_name");
 	$engine->openDB->sanitize = FALSE;
 	$sqlResult                = $engine->openDB->query($sql);
 
@@ -38,16 +36,14 @@ $pubDate = date('r');
 
 			$link = $guid = $engineVars['WVULSERVER']."/availableComputers/index.php?building=".$row['building']."&amp;floor=".$row['floor'];
 
-			$sql = sprintf("SELECT name FROM %s WHERE building_id='%s'",
-				$engine->openDB->escape($engine->dbTables("buildings")),
+			$sql = sprintf("SELECT name FROM `buildings` WHERE building_id='%s'",
 				$engine->openDB->escape($row['building'])
 				);
 			$engine->openDB->sanitize = FALSE;
 			$sqlResult2               = $engine->openDB->query($sql);
 			$building                 = mysql_fetch_array($sqlResult2['result'], MYSQL_ASSOC);
 
-			$sql = sprintf("SELECT floor_name FROM %s WHERE floor='%s'",
-				$engine->openDB->escape($engine->dbTables("floors")),
+			$sql = sprintf("SELECT floor_name FROM `floors` WHERE floor='%s'",
 				$engine->openDB->escape($row['building']),
 				$engine->openDB->escape($row['floor'])
 				);

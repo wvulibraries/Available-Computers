@@ -6,7 +6,7 @@ include("adminHeader.php");
 
 <?php
 $errorMsg = NULL;
-$engine->localVars("listTable",$engine->dbTables("functions"));
+$engine->localVars("listTable",'functions');
 
 
 function listFields() {

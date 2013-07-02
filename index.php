@@ -22,9 +22,7 @@ if (!file_exists("includes/css/$building-$floor.css")) {
 <?php
 $output .= '<div id="map-'.$building.'-'.$floor.'" class="imgContainer">';
 
-$sql = sprintf("SELECT DISTINCT computers.table_name, tableTypes.name FROM %s AS computers LEFT JOIN %s AS tableTypes ON computers.table_type=tableTypes.id WHERE computers.building='%s' AND computers.floor='%s'",
-	$engine->openDB->escape($engine->dbTables("computers")),
-	$engine->openDB->escape($engine->dbTables("tableTypes")),
+$sql = sprintf("SELECT DISTINCT computers.table_name, tableTypes.name FROM `computers` LEFT JOIN `tableTypes` ON computers.table_type=tableTypes.id WHERE computers.building='%s' AND computers.floor='%s'",
 	$engine->openDB->escape($building),
 	$engine->openDB->escape($floor)
 	);
@@ -39,8 +37,7 @@ else {
 
 		$output .= '<div class="'.$table['name'].'" id="'.$table['table_name'].'">';
 
-		$sql = sprintf("SELECT table_location, availability, computer_name FROM %s WHERE building='%s' AND floor='%s' AND table_name='%s'",
-			$engine->openDB->escape($engine->dbTables("computers")),
+		$sql = sprintf("SELECT table_location, availability, computer_name FROM `computers` WHERE building='%s' AND floor='%s' AND table_name='%s'",
 			$engine->openDB->escape($building),
 			$engine->openDB->escape($floor),
 			$engine->openDB->escape($table['table_name'])

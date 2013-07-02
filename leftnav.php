@@ -2,9 +2,7 @@
 
 <ul>
 	<?php
-	$sql = sprintf("SELECT * FROM %s ORDER BY name",
-		$engine->openDB->escape($engine->dbTables("buildings"))
-		);
+	$sql = sprintf("SELECT * FROM `buildings` ORDER BY name");
 	$engine->openDB->sanitize = FALSE;
 	$sqlResult                = $engine->openDB->query($sql);
 
@@ -13,9 +11,7 @@
 
 			print "<li>".htmlSanitize($names['name']);
 
-			$sql = sprintf("SELECT * FROM %s AS buildingFloors LEFT JOIN %s AS floors ON floors.id=buildingFloors.floor_id WHERE buildingFloors.building_id='%s' ORDER BY buildingFloors.id",
-				$engine->openDB->escape($engine->dbTables("buildingFloors")),
-				$engine->openDB->escape($engine->dbTables("floors")),
+			$sql = sprintf("SELECT * FROM `buildingFloors` LEFT JOIN `floors` ON floors.id=buildingFloors.floor_id WHERE buildingFloors.building_id='%s' ORDER BY buildingFloors.id",
 				$engine->openDB->escape($names['building_id'])
 				);
 			$engine->openDB->sanitize = FALSE;

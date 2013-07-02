@@ -6,7 +6,7 @@ include("adminHeader.php");
 
 <?php
 $errorMsg = NULL;
-$engine->localVars("listTable",$engine->dbTables("computers"));
+$engine->localVars("listTable",'computers');
 
 
 function listFields($null=FALSE) {
@@ -28,9 +28,7 @@ function listFields($null=FALSE) {
 	$options['type']  = "select";
 	$options['dupes'] = TRUE;
 
-	$sql = sprintf("SELECT * FROM %s ORDER BY name",
-		$engine->openDB->escape($engine->dbTables("operatingSystems"))
-		);
+	$sql = sprintf("SELECT * FROM `operatingSystems` ORDER BY name");
 	$engine->openDB->sanitize = FALSE;
 	$sqlResult                = $engine->openDB->query($sql);
 
@@ -54,9 +52,7 @@ function listFields($null=FALSE) {
 	$options['type']  = "select";
 	$options['dupes'] = TRUE;
 
-	$sql = sprintf("SELECT * FROM %s ORDER BY name",
-		$engine->openDB->escape($engine->dbTables("functions"))
-		);
+	$sql = sprintf("SELECT * FROM `functions` ORDER BY name");
 	$engine->openDB->sanitize = FALSE;
 	$sqlResult                = $engine->openDB->query($sql);
 
@@ -80,9 +76,7 @@ function listFields($null=FALSE) {
 	$options['type']  = "select";
 	$options['dupes'] = TRUE;
 
-	$sql = sprintf("SELECT * FROM %s ORDER BY name",
-		$engine->openDB->escape($engine->dbTables("buildings"))
-		);
+	$sql = sprintf("SELECT * FROM `buildings` ORDER BY name");
 	$engine->openDB->sanitize = FALSE;
 	$sqlResult                = $engine->openDB->query($sql);
 
@@ -106,9 +100,7 @@ function listFields($null=FALSE) {
 	$options['type']  = "select";
 	$options['dupes'] = TRUE;
 
-	$sql = sprintf("SELECT * FROM %s ORDER BY floor_name",
-		$engine->openDB->escape($engine->dbTables("floors"))
-		);
+	$sql = sprintf("SELECT * FROM `floors` ORDER BY floor_name");
 	$engine->openDB->sanitize = FALSE;
 	$sqlResult                = $engine->openDB->query($sql);
 
@@ -132,9 +124,7 @@ function listFields($null=FALSE) {
 	$options['type']  = "select";
 	$options['dupes'] = TRUE;
 
-	$sql = sprintf("SELECT * FROM %s ORDER BY name",
-		$engine->openDB->escape($engine->dbTables("tableTypes"))
-		);
+	$sql = sprintf("SELECT * FROM `tableTypes` ORDER BY name");
 	$engine->openDB->sanitize = FALSE;
 	$sqlResult                = $engine->openDB->query($sql);
 
