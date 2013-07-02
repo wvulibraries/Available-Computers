@@ -6,14 +6,14 @@ include("adminHeader.php");
 
 <?php
 $errorMsg = NULL;
-$engine->localVars("listTable",'computers');
+localVars::add('listTable', 'computers');
 
 
 function listFields($null=FALSE) {
 
 	global $engine;
 
-	$listObj = new listManagement($engine,$engine->localVars("listTable"));
+	$listObj = new listManagement($engine,localVars::get('listTable'));
 
 	$options = array();
 	$options['field'] = "computer_name";
@@ -161,12 +161,12 @@ function listFields($null=FALSE) {
 $listObj = listFields(FALSE);
 
 // Form Submission
-if(isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_submit'])) {
+if(isset($engine->cleanPost['MYSQL'][localVars::get('listTable').'_submit'])) {
 
 	$errorMsg .= $listObj->insert();
 
 }
-else if (isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_update'])) {
+else if (isset($engine->cleanPost['MYSQL'][localVars::get('listTable').'_update'])) {
 
 	$errorMsg .= $listObj->update();
 

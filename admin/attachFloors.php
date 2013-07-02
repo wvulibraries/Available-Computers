@@ -6,13 +6,13 @@ include("adminHeader.php");
 
 <?php
 $errorMsg = NULL;
-$engine->localVars("listTable",'buildings');
+localVars::add('listTable', 'buildings');
 
 function listFields() {
 
 	global $engine;
 
-	$listObj = new listManagement($engine,$engine->localVars("listTable"));
+	$listObj = new listManagement($engine,localVars::get('listTable'));
 	$listObj->updateInsert   = TRUE;
 	$listObj->updateInsertID = "building_id";
 
@@ -61,7 +61,7 @@ function listFields() {
 $listObj = listFields();
 
 // Form Submission
-if(isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_submit'])) {
+if(isset($engine->cleanPost['MYSQL'][localVars::get('listTable').'_submit'])) {
 
 	$errorMsg .= $listObj->insert();
 	$listObj = listFields();

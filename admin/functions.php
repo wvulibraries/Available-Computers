@@ -6,14 +6,14 @@ include("adminHeader.php");
 
 <?php
 $errorMsg = NULL;
-$engine->localVars("listTable",'functions');
+localVars::add('listTable', 'functions');
 
 
 function listFields() {
 
 	global $engine;
 
-	$listObj = new listManagement($engine,$engine->localVars("listTable"));
+	$listObj = new listManagement($engine,localVars::get('listTable'));
 
 	$options = array();
 	$options['field'] = "name";
@@ -28,13 +28,13 @@ function listFields() {
 $listObj = listFields();
 
 // Form Submission
-if(isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_submit'])) {
+if(isset($engine->cleanPost['MYSQL'][localVars::get('listTable').'_submit'])) {
 
 	$errorMsg .= $listObj->insert();
 	$listObj = listFields();
 
 }
-else if (isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_update'])) {
+else if (isset($engine->cleanPost['MYSQL'][localVars::get('listTable').'_update'])) {
 
 	$errorMsg .= $listObj->update();
 	$listObj = listFields();
