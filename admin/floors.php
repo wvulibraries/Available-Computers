@@ -1,20 +1,20 @@
-<?
+<?php
 include("adminHeader.php");
 ?>
 
 <!-- Page Content Goes Below This Line -->
 
-<?
+<?php
 $errorMsg = NULL;
 $engine->localVars("listTable",$engine->dbTables("floors"));
 
 
 function listFields() {
-	
+
 	global $engine;
 
 	$listObj = new listManagement($engine,$engine->localVars("listTable"));
-	
+
 	$options = array();
 	$options['field'] = "floor";
 	$options['label'] = "Short Name";
@@ -36,35 +36,35 @@ $listObj = listFields();
 
 // Form Submission
 if(isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_submit'])) {
-	
+
 	$errorMsg .= $listObj->insert();
 	$listObj = listFields();
 
 }
 else if (isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_update'])) {
-	
+
 	$errorMsg .= $listObj->update();
 	$listObj = listFields();
-	
+
 }
 // Form Submission
 ?>
 
 <h2>Manage Floors</h2>
 
-<?
+<?php
 if (!is_empty($errorMsg)) {
 	print $errorMsg;
 }
 ?>
 
 <h3>New Floor</h3>
-<?= $listObj->displayInsertForm(); ?>
+<?php echo $listObj->displayInsertForm(); ?>
 
 <hr />
 
 <h3>Edit Floors</h3>
-<?= $listObj->displayEditTable(); ?>
+<?php echo $listObj->displayEditTable(); ?>
 
 <!-- Page Content Goes Above This Line -->
 

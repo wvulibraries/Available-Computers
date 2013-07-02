@@ -1,20 +1,20 @@
-<?
+<?php
 include("adminHeader.php");
 ?>
 
 <!-- Page Content Goes Below This Line -->
 
-<?
+<?php
 $errorMsg = NULL;
 $engine->localVars("listTable",$engine->dbTables("computers"));
 
 
 function listFields($null=FALSE) {
-	
+
 	global $engine;
 
 	$listObj = new listManagement($engine,$engine->localVars("listTable"));
-	
+
 	$options = array();
 	$options['field'] = "computer_name";
 	$options['label'] = "Computer Name";
@@ -177,35 +177,35 @@ $listObj = listFields(FALSE);
 
 // Form Submission
 if(isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_submit'])) {
-	
+
 	$errorMsg .= $listObj->insert();
 
 }
 else if (isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_update'])) {
-	
+
 	$errorMsg .= $listObj->update();
-	
+
 }
 // Form Submission
 ?>
 
 <h2>Edit Computers</h2>
 
-<?
+<?php
 if (!is_empty($errorMsg)) {
 	print $errorMsg."<hr />";
 }
 ?>
 
 <h3>New Computer</h3>
-<? $listObj = listFields(TRUE); ?>
-<?= $listObj->displayInsertForm(); ?>
+<?php $listObj = listFields(TRUE); ?>
+<?php echo $listObj->displayInsertForm(); ?>
 
 <hr />
 
 <h3>Edit Computers</h3>
-<? $listObj = listFields(FALSE); ?>
-<?= $listObj->displayEditTable(); ?>
+<?php $listObj = listFields(FALSE); ?>
+<?php echo $listObj->displayEditTable(); ?>
 
 <!-- Page Content Goes Above This Line -->
 

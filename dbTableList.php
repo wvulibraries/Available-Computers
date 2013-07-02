@@ -1,4 +1,4 @@
-<?
+<?php
 global $engine;
 
 $engine->dbTables("buildingFloors","prod","buildingFloors");

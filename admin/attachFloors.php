@@ -1,21 +1,21 @@
-<?
+<?php
 include("adminHeader.php");
 ?>
 
 <!-- Page Content Goes Below This Line -->
 
-<?
+<?php
 $errorMsg = NULL;
 $engine->localVars("listTable",$engine->dbTables("buildings"));
 
 function listFields() {
-	
+
 	global $engine;
 
 	$listObj = new listManagement($engine,$engine->localVars("listTable"));
 	$listObj->updateInsert   = TRUE;
 	$listObj->updateInsertID = "building_id";
-	
+
 	$options = array();
 	$options['field'] = "building_id";
 	$options['label'] = "buildingID";
@@ -45,12 +45,12 @@ function listFields() {
 
 		$engine->openDB->sanitize = FALSE;
 		$sqlResult                = $engine->openDB->query($sql);
-		
+
 		$tempList = array();
 		while ($row = mysql_fetch_array($sqlResult['result'],  MYSQL_ASSOC)) {
 			$tempList[] = $row['floor_id'];
 		}
-		
+
 		$options['options']['select'] = implode(",",$tempList);
 
 	$listObj->addField($options);
@@ -64,7 +64,7 @@ $listObj = listFields();
 
 // Form Submission
 if(isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_submit'])) {
-	
+
 	$errorMsg .= $listObj->insert();
 	$listObj = listFields();
 
@@ -74,14 +74,14 @@ if(isset($engine->cleanPost['MYSQL'][$engine->localVars("listTable").'_submit'])
 
 <h2>Manage Buildings</h2>
 
-<?
+<?php
 if (!is_empty($errorMsg)) {
 	print $errorMsg;
 }
 ?>
 
 <h3>Edit Floors</h3>
-<?= $listObj->displayInsertForm(); ?>
+<?php echo $listObj->displayInsertForm(); ?>
 
 <!-- Page Content Goes Above This Line -->
 

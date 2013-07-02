@@ -1,10 +1,10 @@
-<?
+<?php
 include("header.php");
 ?>
 
 <!-- Page Content Goes Below This Line -->
 
-<?
+<?php
 $errorMsg = NULL;
 $output   = NULL;
 $building = isset($engine->cleanGet['MYSQL']['building']) ? $engine->cleanGet['MYSQL']['building'] : 1;
@@ -17,9 +17,9 @@ if (!file_exists("includes/css/$building-$floor.css")) {
 }
 ?>
 
-<link rel="stylesheet" href="/availableComputers/includes/css/<?= $building."-".$floor ?>.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/availableComputers/includes/css/<?php echo $building."-".$floor ?>.css" type="text/css" media="screen" />
 
-<?
+<?php
 $output .= '<div id="map-'.$building.'-'.$floor.'" class="imgContainer">';
 
 $sql = sprintf("SELECT DISTINCT computers.table_name, tableTypes.name FROM %s AS computers LEFT JOIN %s AS tableTypes ON computers.table_type=tableTypes.id WHERE computers.building='%s' AND computers.floor='%s'",
@@ -36,7 +36,7 @@ if (!$sqlResult['result']) {
 }
 else {
 	while ($table = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
-		
+
 		$output .= '<div class="'.$table['name'].'" id="'.$table['table_name'].'">';
 
 		$sql = sprintf("SELECT table_location, availability, computer_name FROM %s WHERE building='%s' AND floor='%s' AND table_name='%s'",
@@ -47,13 +47,13 @@ else {
 			);
 		$engine->openDB->sanitize = FALSE;
 		$sqlResult2               = $engine->openDB->query($sql);
-		
+
 		if (!$sqlResult2['result']) {
 			$errorMsg .= webHelper_errorMsg("Failed to retrieve computers.");
 		}
 		else {
 			while ($row = mysql_fetch_array($sqlResult2['result'], MYSQL_ASSOC)) {
-				
+
 				if (!isnull($row['availability'])) {
 					if ($row['availability'] == "available") {
 						$color = "g";
@@ -70,7 +70,7 @@ else {
 
 			}
 		}
-		
+
 		$output .= "</div>";
 
 	}
@@ -88,6 +88,6 @@ print $output;
 
 <!-- Page Content Goes Above This Line -->
 
-<?
+<?php
 $engine->eTemplate("include","footer");
 ?>

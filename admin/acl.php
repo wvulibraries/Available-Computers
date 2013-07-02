@@ -1,4 +1,4 @@
-<?
+<?php
 global $engine;
 
 $engine->accessControl("ADgroup","libraryWeb_availableComputers",TRUE);
