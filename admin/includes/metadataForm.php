@@ -1,27 +1,10 @@
 <?php
-require("../header.php");
-recurseInsert("acl.php","php");
-
-localVars::add('listTable', 'tableTypes');
-
 function listFields() {
 	$l = new listManagement(localVars::get('listTable'));
 
 	$l->addField(array(
-		'field' => 'ID',
-		'label' => 'Table Type ID',
-		'type'  => 'hidden',
-		));
-
-	$l->addField(array(
 		'field' => 'name',
-		'label' => 'Table Type',
-		));
-
-	$l->addField(array(
-		'field' => '<a href="tableTypeLocs.php?id={ID}">Attach Locations</a>',
-		'label' => 'Locations',
-		'type'  => 'plainText',
+		'label' => localVars::get('labelSingular'),
 		));
 
 	return $l;
@@ -47,19 +30,18 @@ localVars::add("editTable",  $listObj->displayEditTable());
 $engine->eTemplate("include","header");
 ?>
 
-<h1>Manage Table Types</h1>
+<h1>Manage {local var="labelPlural"}</h1>
 
 {local var="results"}
 
-<h2>New Table Type</h2>
+<h2>New {local var="labelSingular"}</h2>
 {local var="insertForm"}
 
 <hr />
 
-<h2>Edit Table Types</h2>
+<h2>Edit {local var="labelPlural"}</h2>
 {local var="editTable"}
 
 <?php
 $engine->eTemplate("include","footer");
 ?>
-

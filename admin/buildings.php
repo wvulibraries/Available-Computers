@@ -2,76 +2,63 @@
 require("../header.php");
 recurseInsert("acl.php","php");
 
-$errorMsg = NULL;
 localVars::add('listTable', 'buildings');
 
-
 function listFields() {
-	$engine = EngineAPI::singleton();
+	$l = new listManagement(localVars::get('listTable'));
 
-	$listObj = new listManagement($engine,localVars::get('listTable'));
+	$l->addField(array(
+		'field' => 'ID',
+		'label' => 'Building ID',
+		'type'  => 'hidden',
+		));
 
-	$options = array();
-	$options['field'] = "building_id";
-	$options['label'] = "buildingID";
-	$options['type']  = "hidden";
-	$listObj->addField($options);
-	unset($options);
+	$l->addField(array(
+		'field' => 'name',
+		'label' => 'Building',
+		));
 
-	$options = array();
-	$options['field'] = "name";
-	$options['label'] = "Name";
-	$listObj->addField($options);
-	unset($options);
+	$l->addField(array(
+		'field' => '<a href="attachFloors.php?id={ID}">Attach Floors</a>',
+		'label' => 'Floors',
+		'type'  => 'plainText',
+		));
 
-	$options = array();
-	$options['field'] = '<a href="attachFloors.php?id={building_id}">Attach Floors</a>';
-	$options['label'] = "Floors";
-	$options['type']  = "plainText";
-	$listObj->addField($options);
-	unset($options);
-
-	return $listObj;
-
+	return $l;
 }
+
+// Form Submission
+if (isset($engine->cleanPost['MYSQL'][localVars::get('listTable').'_submit'])) {
+	$listObj = listFields();
+	$listObj->insert();
+}
+else if (isset($engine->cleanPost['MYSQL'][localVars::get('listTable').'_update'])) {
+	$listObj = listFields();
+	$listObj->update();
+}
+// Form Submission
 
 $listObj = listFields();
 
-// Form Submission
-if(isset($engine->cleanPost['MYSQL'][localVars::get('listTable').'_submit'])) {
-
-	$errorMsg .= $listObj->insert();
-	$listObj = listFields();
-
-}
-else if (isset($engine->cleanPost['MYSQL'][localVars::get('listTable').'_update'])) {
-
-	$errorMsg .= $listObj->update();
-	$listObj = listFields();
-
-}
-// Form Submission
+localVars::add("results",    displayErrorStack());
+localVars::add("insertForm", $listObj->displayInsertForm());
+localVars::add("editTable",  $listObj->displayEditTable());
 
 $engine->eTemplate("include","header");
 ?>
 
-<h2>Manage Buildings</h2>
+<h1>Manage Buildings</h1>
 
-<?php
-if (!is_empty($errorMsg)) {
-	print $errorMsg;
-}
-?>
+{local var="results"}
 
-<h3>New Building</h3>
-<?php echo $listObj->displayInsertForm(); ?>
+<h2>New Building</h2>
+{local var="insertForm"}
 
 <hr />
 
-<h3>Edit Buildings</h3>
-<?php echo $listObj->displayEditTable(); ?>
+<h2>Edit Buildings</h2>
+{local var="editTable"}
 
 <?php
 $engine->eTemplate("include","footer");
 ?>
-

@@ -3,7 +3,7 @@ require("../header.php");
 recurseInsert("acl.php","php");
 
 $errorMsg = NULL;
-localVars::add('listTable', 'buildings');
+localVars::add('listTable', 'tableTypes');
 
 function listFields() {
 	$engine = EngineAPI::singleton();
@@ -14,12 +14,12 @@ function listFields() {
 
 	$l->addField(array(
 		'field' => 'ID',
-		'label' => 'Building ID',
+		'label' => 'Table Type ID',
 		'type'  => 'hidden',
 		'value' => $engine->cleanGet['MYSQL']['id'],
 		));
 
-	$sql = sprintf("SELECT `floorID` FROM `buildingFloors` WHERE `buildingID`='%s'",
+	$sql = sprintf("SELECT `tableLocationID` FROM `tableTypeLocs` WHERE `tableTypeID`='%s'",
 		$engine->cleanGet['MYSQL']['id']
 	);
 	$sqlResult = $engine->openDB->query($sql);
@@ -32,16 +32,16 @@ function listFields() {
 	}
 
 	$l->addField(array(
-		'field'   => 'ms_floors',
-		'label'   => 'Floors',
+		'field'   => 'ms_tableLocations',
+		'label'   => 'Table Locations',
 		'type'    => 'multiselect',
 		'options' => array(
-			'valueTable'        => 'floors',
+			'valueTable'        => 'tableLocations',
 			'valueDisplayField' => 'name',
 			'valueDisplayID'    => 'ID',
-			'linkTable'         => 'buildingFloors',
-			'linkValueField'    => 'floorID',
-			'linkObjectField'   => 'buildingID',
+			'linkTable'         => 'tableTypeLocs',
+			'linkValueField'    => 'tableLocationID',
+			'linkObjectField'   => 'tableTypeID',
 			'select'            => implode(",", $tmp),
 			),
 		));
@@ -64,11 +64,11 @@ localVars::add("insertForm", $listObj->displayInsertForm());
 $engine->eTemplate("include","header");
 ?>
 
-<h1>Manage Buildings</h1>
+<h1>Manage Table Types</h1>
 
 {local var="results"}
 
-<h2>Edit Floors</h2>
+<h2>Edit TableLocations</h2>
 {local var="insertForm"}
 
 <?php
