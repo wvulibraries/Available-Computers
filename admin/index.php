@@ -1,10 +1,8 @@
 <?php
-include("adminHeader.php");
-?>
+require("../header.php");
+recurseInsert("acl.php","php");
 
-<!-- Page Content Goes Below This Line -->
-<!-- Page Content Goes Above This Line -->
+$engine->eTemplate("include","header");
 
-<?php
 $engine->eTemplate("include","footer");
 ?>

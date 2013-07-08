@@ -1,10 +1,7 @@
 <?php
-include("adminHeader.php");
-?>
+require("../header.php");
+recurseInsert("acl.php","php");
 
-<!-- Page Content Goes Below This Line -->
-
-<?php
 $errorMsg = NULL;
 localVars::add('listTable', 'buildings');
 
@@ -67,6 +64,8 @@ if(isset($engine->cleanPost['MYSQL'][localVars::get('listTable').'_submit'])) {
 
 }
 // Form Submission
+
+$engine->eTemplate("include","header");
 ?>
 
 <h2>Manage Buildings</h2>
@@ -79,8 +78,6 @@ if (!is_empty($errorMsg)) {
 
 <h3>Edit Floors</h3>
 <?php echo $listObj->displayInsertForm(); ?>
-
-<!-- Page Content Goes Above This Line -->
 
 <?php
 $engine->eTemplate("include","footer");

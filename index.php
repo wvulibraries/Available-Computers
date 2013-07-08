@@ -1,9 +1,6 @@
 <?php
 include("header.php");
 
-$engine->eTemplate("load","systems.2013.2col");
-$engine->eTemplate("include","header");
-
 $errorMsg = NULL;
 $output   = NULL;
 $map      = isset($engine->cleanGet['MYSQL']['map']) ? $engine->cleanGet['MYSQL']['map'] : 1;
@@ -18,6 +15,8 @@ if ($sqlResult['result']) {
 }
 
 $availability = array(1=>'g','r',(checkGroup('webAvailableComputersAdmin') ? 'b' : 'r'));
+
+$engine->eTemplate("include","header");
 
 // If there is no css file for the given map
 if (!file_exists('includes/css/map-'.$map.'.css')) {
