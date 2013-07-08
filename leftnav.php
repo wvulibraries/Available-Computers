@@ -1,34 +1,31 @@
-<ul>
-	<?php
-	$sql = sprintf("SELECT * FROM `buildings` ORDER BY name");
-	$sqlResult = $engine->openDB->query($sql);
+<?php
+$sql = sprintf("SELECT * FROM `buildings` ORDER BY name");
+$sqlResult = $engine->openDB->query($sql);
 
-	if ($sqlResult['result']) {
-		while ($names = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
+if ($sqlResult['result']) {
+	$tmp = '';
+	while ($names = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
+		$tmp .= '<li class="nav-header">'.htmlSanitize($names['name']).'</li>';
 
-			print "<li>".htmlSanitize($names['name']);
+		$sql = sprintf("SELECT `buildingFloors`.`ID`, `floors`.`name`
+						FROM `buildingFloors`
+						LEFT JOIN `floors` ON `floors`.`ID`=`buildingFloors`.`floorID`
+						WHERE `buildingFloors`.`buildingID`='%s'
+						ORDER BY `buildingFloors`.`ID`",
+			$engine->openDB->escape($names['ID'])
+			);
+		$sqlResult2 = $engine->openDB->query($sql);
 
-			$sql = sprintf("SELECT * FROM `buildingFloors` LEFT JOIN `floors` ON floors.id=buildingFloors.floor_id WHERE buildingFloors.building_id='%s' ORDER BY buildingFloors.id",
-				$engine->openDB->escape($names['building_id'])
-				);
-			$sqlResult2 = $engine->openDB->query($sql);
-
-			if ($sqlResult2['result']) {
-				print "<ul>";
-				while ($floors = mysql_fetch_array($sqlResult2['result'], MYSQL_ASSOC)) {
-					print "<li>";
-					print "<a href=\"index.php?building=".$names['building_id']."&floor=".$floors['floor']."\">";
-					print htmlSanitize($floors['floor_name']);
-					print "</a>";
-					print "</li>";
-				}
-				print "</ul>";
+		if ($sqlResult2['result']) {
+			while ($floors = mysql_fetch_array($sqlResult2['result'], MYSQL_ASSOC)) {
+				$tmp .= '<li><a href="index.php?map='.htmlSanitize($floors['ID']).'">'.htmlSanitize($floors['name']).'</a></li>';
 			}
-
-			print "</li>";
-
 		}
-
 	}
-	?>
+	localVars::add("navList", $tmp);
+}
+?>
+
+<ul class="nav nav-list">
+	{local var="navList"}
 </ul>

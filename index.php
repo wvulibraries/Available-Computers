@@ -1,30 +1,42 @@
 <?php
 include("header.php");
-?>
 
-<!-- Page Content Goes Below This Line -->
+$engine->eTemplate("load","systems.2013.2col");
+$engine->eTemplate("include","header");
 
-<?php
 $errorMsg = NULL;
 $output   = NULL;
-$building = isset($engine->cleanGet['MYSQL']['building']) ? $engine->cleanGet['MYSQL']['building'] : 1;
-$floor    = isset($engine->cleanGet['MYSQL']['floor'])    ? $engine->cleanGet['MYSQL']['floor']    : 1;
+$map      = isset($engine->cleanGet['MYSQL']['map']) ? $engine->cleanGet['MYSQL']['map'] : 1;
 
-// If there is no css file for the given building and floor
-if (!file_exists("includes/css/$building-$floor.css")) {
+$sql = sprintf("SELECT * FROM `buildingFloors` WHERE ID='%s' LIMIT 1",
+	$engine->openDB->escape($map)
+	);
+$sqlResult = $engine->openDB->query($sql);
+
+if ($sqlResult['result']) {
+	$row = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC);
+}
+
+$availability = array(1=>'g','r',(checkGroup('webAvailableComputersAdmin') ? 'b' : 'r'));
+
+// If there is no css file for the given map
+if (!file_exists('includes/css/map-'.$map.'.css')) {
 	echo "No data yet.";
 	exit;
 }
 ?>
 
-<link rel="stylesheet" href="/availableComputers/includes/css/<?php echo $building."-".$floor ?>.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/availableComputers/includes/css/map-<?php echo htmlSanitize($map) ?>.css" type="text/css" media="screen" />
 
 <?php
-$output .= '<div id="map-'.$building.'-'.$floor.'" class="imgContainer">';
+$output .= '<div id="map-'.htmlSanitize($map).'" class="imgContainer">';
 
-$sql = sprintf("SELECT DISTINCT computers.table_name, tableTypes.name FROM `computers` LEFT JOIN `tableTypes` ON computers.table_type=tableTypes.id WHERE computers.building='%s' AND computers.floor='%s'",
-	$engine->openDB->escape($building),
-	$engine->openDB->escape($floor)
+$sql = sprintf("SELECT DISTINCT `tableNameID`, `tableNames`.`name` AS `tableName`, `tableTypes`.`name` AS `tableType`
+				FROM `computers`
+				LEFT JOIN `tableNames` ON `computers`.`tableNameID`=`tableNames`.`ID`
+				LEFT JOIN `tableTypes` ON `tableNames`.`tableTypeID`=`tableTypes`.`ID`
+				WHERE `tableNames`.`buildingFloorID`='%s'",
+	$engine->openDB->escape($map)
 	);
 $sqlResult = $engine->openDB->query($sql);
 
@@ -34,12 +46,13 @@ if (!$sqlResult['result']) {
 else {
 	while ($table = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
 
-		$output .= '<div class="'.$table['name'].'" id="'.$table['table_name'].'">';
+		$output .= '<div class="'.$table['tableType'].'" id="'.$table['tableName'].'">';
 
-		$sql = sprintf("SELECT table_location, availability, computer_name FROM `computers` WHERE building='%s' AND floor='%s' AND table_name='%s'",
-			$engine->openDB->escape($building),
-			$engine->openDB->escape($floor),
-			$engine->openDB->escape($table['table_name'])
+		$sql = sprintf("SELECT `tableLocations`.`name` AS `tableLocation`, `availabilityID`, `computers`.`name` AS `computerName`
+						FROM `computers`
+						LEFT JOIN `tableLocations` ON `computers`.`tableLocationID`=`tableLocations`.`ID`
+						WHERE `computers`.`tableNameID`='%s'",
+			$engine->openDB->escape($table['tableNameID'])
 			);
 		$sqlResult2 = $engine->openDB->query($sql);
 
@@ -48,19 +61,10 @@ else {
 		}
 		else {
 			while ($row = mysql_fetch_array($sqlResult2['result'], MYSQL_ASSOC)) {
+				if (!isnull($row['availabilityID'])) {
+					$color = $availability[$row['availabilityID']];
 
-				if (!isnull($row['availability'])) {
-					if ($row['availability'] == "available") {
-						$color = "g";
-					}
-					else if ($row['availability'] == "offline" && checkGroup('webAvailableComputersAdmin')) {
-						$color = "b";
-					}
-					else {
-						$color = "r";
-					}
-
-					$output .= '<img class="'.$row['table_location'].'" alt="'.$row['computer_name'].'" title="'.$row['computer_name'].'" src="/availableComputers/images/'.$table['name'].'/'.$color.'-'.$row['table_location'].'.gif" />';
+					$output .= '<img class="'.$row['tableLocation'].'" alt="'.$row['computerName'].'" title="'.$row['computerName'].'" src="images/'.$table['tableType'].'/'.$color.'-'.$row['tableLocation'].'.gif" />';
 				}
 
 			}
