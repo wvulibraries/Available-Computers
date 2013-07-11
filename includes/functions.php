@@ -1,4 +1,31 @@
 <?php
+function getMetadataOptions($table, $fieldValue=NULL) {
+	$engine = EngineAPI::singleton();
+	$output = array();
+
+	$sql = sprintf("SELECT `ID`, `name` FROM `%s` ORDER BY `name`",
+		$engine->openDB->escape($table)
+		);
+	$sqlResult = $engine->openDB->query($sql);
+
+	if ($sqlResult['result']) {
+		while ($row = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
+			$selected = FALSE;
+			if (isset($fieldValue) && $fieldValue == $row['ID']) {
+				$selected = TRUE;
+			}
+
+			$output[] = array(
+				'value'    => $row['ID'],
+				'label'    => $row['name'],
+				'selected' => $selected,
+				);
+		}
+	}
+
+	return $output;
+}
+
 function displayErrorStack() {
 	$engine = EngineAPI::singleton();
 	$output = '';

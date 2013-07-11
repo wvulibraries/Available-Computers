@@ -2,39 +2,17 @@
 require("../header.php");
 recurseInsert("acl.php","php");
 
-$errorMsg = NULL;
 localVars::add('listTable', 'computers');
-
-function getMetadataOptions($table, $emptyLabel=NULL) {
-	$engine = EngineAPI::singleton();
-	$output = array();
-
-	$sql = sprintf("SELECT `ID`, `name` FROM `%s` ORDER BY `name`",
-		$engine->openDB->escape($table)
-		);
-	$sqlResult = $engine->openDB->query($sql);
-
-	if (!isnull($emptyLabel)) {
-		$output[] = array(
-			'value' => '',
-			'label' => $emptyLabel,
-			);
-	}
-	if ($sqlResult['result']) {
-		while ($row = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
-			$output[] = array(
-				'value' => $row['ID'],
-				'label' => $row['name'],
-				);
-		}
-	}
-
-	return $output;
-}
 
 function listFields($null=FALSE) {
 	$engine = EngineAPI::singleton();
 	$l      = new listManagement(localVars::get('listTable'));
+
+	$l->addField(array(
+		'field' => 'ID',
+		'label' => 'Computer ID',
+		'type'  => 'hidden',
+		));
 
 	$l->addField(array(
 		'field' => 'name',
@@ -45,37 +23,24 @@ function listFields($null=FALSE) {
 		'field'   => 'osID',
 		'label'   => 'Operating System',
 		'type'    => 'select',
-		'options' => getMetadataOptions('operatingSystems',($null ? '' : '-- Select an OS --')),
-		'size'    => '10',
+		'options' => getMetadataOptions('operatingSystems'),
 		));
 
 	$l->addField(array(
 		'field'   => 'functionID',
 		'label'   => 'Function',
 		'type'    => 'select',
-		'options' => getMetadataOptions('functions',($null ? '' : '-- Select a Function --')),
-		'size'    => '10',
+		'options' => getMetadataOptions('functions'),
 		));
 
 	$l->addField(array(
-		'field'   => 'tableNameID',
-		'label'   => 'Table Name',
-		'type'    => 'select',
-		'options' => getMetadataOptions('tableNames',($null ? '' : '-- Select a Table Name --')),
-		'size'    => '10',
-		));
-
-	$l->addField(array(
-		'field'   => 'tableLocationID',
-		'label'   => 'Table Location',
-		'type'    => 'select',
-		'options' => getMetadataOptions('tableLocations',($null ? '' : '-- Select a Table Location --')),
-		'size'    => '10',
+		'field' => '<a href="mapComputer.php?id={ID}">Map Info</a>',
+		'label' => 'Map',
+		'type'  => 'plainText',
 		));
 
 	return $l;
 }
-
 
 
 // Form Submission
@@ -113,4 +78,3 @@ $engine->eTemplate("include","header");
 <?php
 $engine->eTemplate("include","footer");
 ?>
-
