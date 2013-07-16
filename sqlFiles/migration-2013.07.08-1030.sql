@@ -77,7 +77,7 @@ ALTER TABLE `computers` ADD INDEX (`availabilityID`);
 
 
 -- Normalize operating systems
-INSERT INTO `operatingSystems` (`ID`,`name`) VALUES (1,'windows'),(2,'mac');
+INSERT INTO `operatingSystems` (`ID`,`name`) VALUES (1,'windows'),(2,'macintosh');
 UPDATE `computers` SET `os`='1' WHERE `os`='windows';
 UPDATE `computers` SET `os`='2' WHERE `os`='mac';
 ALTER TABLE `computers` CHANGE `os`  `osID` INT( 10 ) UNSIGNED NOT NULL;
@@ -215,10 +215,11 @@ UPDATE `computers` SET `tableNameID`='76' WHERE `building`='1' AND `floor`='2' A
 UPDATE `computers` SET `tableNameID`='77' WHERE `building`='1' AND `floor`='2' AND `table_name`='halfRound6';
 UPDATE `computers` SET `tableNameID`='78' WHERE `building`='1' AND `floor`='2' AND `table_name`='halfRound7';
 UPDATE `computers` SET `tableNameID`='79' WHERE `building`='1' AND `floor`='2' AND `table_name`='halfRound8';
-ALTER TABLE `computers` DROP `building`;
 ALTER TABLE `computers` DROP `floor`;
 ALTER TABLE `computers` DROP `table_name`;
 ALTER TABLE `computers` DROP `number`;
 
 ALTER TABLE `computers` CHANGE `id`  `ID` INT( 10 ) UNSIGNED NOT NULL AUTO_INCREMENT;
 ALTER TABLE `computers` CHANGE `computer_name`  `name` VARCHAR( 30 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+ALTER TABLE `computers` CHANGE `building`  `buildingID` INT( 10 ) UNSIGNED NOT NULL;
+ALTER TABLE `computers` ADD INDEX (`buildingID`);
