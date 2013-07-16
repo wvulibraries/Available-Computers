@@ -3,7 +3,7 @@ include("header.php");
 
 $errorMsg = NULL;
 $output   = NULL;
-$map      = isset($engine->cleanGet['MYSQL']['map']) ? $engine->cleanGet['MYSQL']['map'] : 1;
+$map      = isset($engine->cleanGet['MYSQL']['map']) ? $engine->cleanGet['MYSQL']['map'] : 2;
 
 $sql = sprintf("SELECT * FROM `buildingFloors` WHERE ID='%s' LIMIT 1",
 	$engine->openDB->escape($map)
