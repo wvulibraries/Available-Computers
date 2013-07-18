@@ -20,10 +20,19 @@ function listFields($null=FALSE) {
 		));
 
 	$l->addField(array(
+		'field'   => 'buildingID',
+		'label'   => 'Building',
+		'type'    => 'select',
+		'options' => getMetadataOptions('buildings'),
+		'dupes'   => TRUE,
+		));
+
+	$l->addField(array(
 		'field'   => 'osID',
 		'label'   => 'Operating System',
 		'type'    => 'select',
 		'options' => getMetadataOptions('operatingSystems'),
+		'dupes'   => TRUE,
 		));
 
 	$l->addField(array(
@@ -31,6 +40,7 @@ function listFields($null=FALSE) {
 		'label'   => 'Function',
 		'type'    => 'select',
 		'options' => getMetadataOptions('functions'),
+		'dupes'   => TRUE,
 		));
 
 	$l->addField(array(
