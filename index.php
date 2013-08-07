@@ -5,6 +5,27 @@ $errorMsg = NULL;
 $output   = NULL;
 $map      = isset($engine->cleanGet['MYSQL']['map']) ? $engine->cleanGet['MYSQL']['map'] : 2;
 
+// Redirect old links
+if (isset($engine->cleanGet['MYSQL']['building'])) {
+	$floor = isset($engine->cleanGet['MYSQL']['floor']) ? $engine->cleanGet['MYSQL']['floor'] : 1;
+
+	$sql = sprintf("SELECT `buildingFloors`.`ID`
+					FROM `buildingFloors`
+					LEFT JOIN `floors` ON `buildingFloors`.`floorID`=`floors`.`ID`
+					WHERE `buildingFloors`.`buildingID`='%s' AND `floors`.`code`='%s'
+					LIMIT 1",
+		$engine->cleanGet['MYSQL']['building'],
+		$floor
+		);
+	$sqlResult = $engine->openDB->query($sql);
+
+	if ($sqlResult['result']) {
+		$row = mysql_fetch_array($sqlResult['result'], MYSQL_NUM);
+		header("Location: ?map=".$row[0], TRUE, 301);
+	}
+}
+// Redirect old links
+
 $sql = sprintf("SELECT * FROM `buildingFloors` WHERE ID='%s' LIMIT 1",
 	$engine->openDB->escape($map)
 	);
