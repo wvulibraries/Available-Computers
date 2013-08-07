@@ -1,4 +1,4 @@
-<ul class="nav nav-list">
+<ul>
 	<li><a href="buildings.php" alt="Manage Buildings">Buildings</a></li>
 	<li><a href="floors.php" alt="Manage Floors">Floors</a></li>
 	<li><a href="operatingSystems.php" alt="Manage Operating Systems">Operating Systems</a></li>

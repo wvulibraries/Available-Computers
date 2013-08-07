@@ -7,7 +7,7 @@ $engine->dbConnect("database","availableComputers",TRUE);
 recurseInsert('dbTableList.php');
 recurseInsert('includes/functions.php');
 
-$engine->eTemplate("load","systems.2013.2col");
+$engine->eTemplate("load","library2012.2col.right");
 
 localVars::add('pageTitle',"Available Computers");
 ?>

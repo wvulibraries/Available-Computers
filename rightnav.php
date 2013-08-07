@@ -5,7 +5,7 @@ $sqlResult = $engine->openDB->query($sql);
 if ($sqlResult['result']) {
 	$tmp = '';
 	while ($names = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
-		$tmp .= '<li class="nav-header">'.htmlSanitize($names['name']).'</li>';
+		$tmp .= '<li>'.htmlSanitize($names['name']).'</li>';
 
 		$sql = sprintf("SELECT `buildingFloors`.`ID`, `floors`.`name`
 						FROM `buildingFloors`
@@ -26,6 +26,6 @@ if ($sqlResult['result']) {
 }
 ?>
 
-<ul class="nav nav-list">
+<ul>
 	{local var="navList"}
 </ul>
