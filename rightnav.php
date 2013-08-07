@@ -5,6 +5,7 @@ $sqlResult = $engine->openDB->query($sql);
 if ($sqlResult['result']) {
 	$tmp = '';
 	while ($names = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
+		$tmp .= '<ul>';
 		$tmp .= '<li>'.htmlSanitize($names['name']).'</li>';
 
 		$sql = sprintf("SELECT `buildingFloors`.`ID`, `floors`.`name`
@@ -21,11 +22,15 @@ if ($sqlResult['result']) {
 				$tmp .= '<li><a href="index.php?map='.htmlSanitize($floors['ID']).'">'.htmlSanitize($floors['name']).'</a></li>';
 			}
 		}
+
+		$tmp .= '</ul>';
 	}
-	localVars::add("navList", $tmp);
+	localVars::add("navLists", $tmp);
 }
 ?>
 
 <ul>
-	{local var="navList"}
+	<li><a href="http://www.libraries.wvu.edu/about/wayfinding/maps/">Library Maps</a></li>
 </ul>
+
+{local var="navLists"}
