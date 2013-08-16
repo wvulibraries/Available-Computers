@@ -4,18 +4,20 @@ $sqlResult = $engine->openDB->query($sql);
 
 if ($sqlResult['result']) {
 	$tmp = '';
-	while ($names = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
+	while ($row = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
 		$tmp .= '<ul>';
-		$tmp .= '<li>'.htmlSanitize($names['name']).'</li>';
+		$tmp .= '<li>'.htmlSanitize($row['name']).'</li>';
+		$tmp .= '<li><a href="laptops.php?building='.htmlSanitize($row['ID']).'">Laptops</a></li>';
 
 		$sql = sprintf("SELECT `buildingFloors`.`ID`, `floors`.`name`
 						FROM `buildingFloors`
 						LEFT JOIN `floors` ON `floors`.`ID`=`buildingFloors`.`floorID`
 						WHERE `buildingFloors`.`buildingID`='%s'
 						ORDER BY `buildingFloors`.`ID`",
-			$engine->openDB->escape($names['ID'])
+			$engine->openDB->escape($row['ID'])
 			);
 		$sqlResult2 = $engine->openDB->query($sql);
+
 
 		if ($sqlResult2['result']) {
 			while ($floors = mysql_fetch_array($sqlResult2['result'], MYSQL_ASSOC)) {

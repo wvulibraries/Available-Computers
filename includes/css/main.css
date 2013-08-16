@@ -10,3 +10,13 @@
 #computers_table td:last-of-type input {
 	width: 30px;
 }
+
+.laptopList .g {
+	list-style-image: url(../../images/greenDot.png);
+}
+.laptopList .r {
+	list-style-image: url(../../images/redDot.png);
+}
+.laptopList .b {
+	list-style-image: url(../../images/blackDot.png);
+}
