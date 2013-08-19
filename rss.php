@@ -28,26 +28,19 @@ $pubDate = date('r');
 
 		while ($row = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
 
-			$description = nl2br("Building: ".$row['building_name']."\nFloor: ".$row['floor_name']."\nAvailability: ".$row['availability']);
+			$link = $engineVars['WVULSERVER']."/availableComputers/index.php?building="; //.$row['buildingID']."&amp;floor=".$row['floor'];
 
-			localvars::add("computerName",$row['computer_name']);
-			localvars::add("buildingName",(is_empty($row['building_name']))?"":$row['building_name']);
-			localvars::add("floorName",(is_empty($row['floor_name']))?"":$row['floor_name']);
-			localvars::add("availability",($row['availability'] == 'available')?"Available":"Unavailable");
-			localvars::add("link",$engineVars['WVULSERVER']."/availableComputers/index.php?building="); //.$row['buildingID']."&amp;floor=".$row['floor'];
-			localvars::add("description",$description);
-			localvars::add("pubDate",$pubDate);
 			?>
 
 			<item>
-				<title>{local var="computerName"}</title>
-				<building>{local var="buildingName"}</building>
-				<floor>{local var="floorName"}</floor>
-				<availability>{local var="availability"}</availability>
-				<link>{local var="link"}</link>
-				<guid>{local var="link"}</guid>
-				<description><![CDATA[ {local var="description"} ]]></description>
-				<pubDate>{local var="pubDate"}</pubDate>
+				<title><?php print $row['computer_name']; ?></title>
+				<building><?php print (is_empty($row['building_name']))?"":$row['building_name']; ?></building>
+				<floor><?php print (is_empty($row['floor_name']))?"":$row['floor_name']; ?></floor>
+				<availability><?php print ($row['availability'] == 'available')?"Available":"Unavailable"; ?></availability>
+				<link><?php print $link; ?></link>
+				<guid><?php print $link; ?></guid>
+				<description><![CDATA[ <?php print nl2br("Building: ".$row['building_name']."\nFloor: ".$row['floor_name']."\nAvailability: ".$row['availability']); ?> ]]></description>
+				<pubDate><?php print $pubDate; ?></pubDate>
 			</item>
 			
 			<?php
