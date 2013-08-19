@@ -1,15 +1,16 @@
 <?php
-$engineDir = "/home/library/phpincludes/engineAPI/engine";
-include($engineDir ."/engine.php");
-$engine = new EngineCMS();
+require_once '/home/library/phpincludes/engine/engineAPI/3.2/engine.php';
+$engine = EngineAPI::singleton();
 
-recurseInsert("dbTableList.php","php");
+require_once '/home/library/phpincludes/databaseConnectors/database.lib.wvu.edu.remote.php';
+// recurseInsert("dbTableList.php","php");
 $engine->dbConnect("database","availableComputers",TRUE);
 
 $pubDate = date('r');
 ?>
 
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+
 <channel>
 
 	<title>WVU Libraries: Available Computers</title>
@@ -20,52 +21,40 @@ $pubDate = date('r');
 	<language>en-us</language>
 
 	<?php
-	$sql = sprintf("SELECT * FROM `computers` ORDER BY building,floor,computer_name");
+	$sql = sprintf("SELECT computers.name as computer_name, buildings.name as building_name, floors.name as floor_name, availabilities.name as availability FROM `computers` LEFT JOIN `buildings` ON computers.buildingID=buildings.ID LEFT JOIN tableNames ON tableNames.ID=computers.tableNameID LEFT JOIN floors ON floors.ID=tableNames.buildingFloorID LEFT JOIN availabilities ON availabilities.ID=computers.availabilityID ORDER BY buildings.name,floors.name,computers.name");
 	$sqlResult = $engine->openDB->query($sql);
 
 	if ($sqlResult['result']) {
+
 		while ($row = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
 
-			if ($row['availability'] == 'available') {
-				$row['availability'] = "Available";
-			}
-			else {
-				$row['availability'] = "Unavailable";
-			}
+			$description = nl2br("Building: ".$row['building_name']."\nFloor: ".$row['floor_name']."\nAvailability: ".$row['availability']);
 
-			$link = $guid = $engineVars['WVULSERVER']."/availableComputers/index.php?building=".$row['building']."&amp;floor=".$row['floor'];
+			localvars::add("computerName",$row['computer_name']);
+			localvars::add("buildingName",(is_empty($row['building_name']))?"":$row['building_name']);
+			localvars::add("floorName",(is_empty($row['floor_name']))?"":$row['floor_name']);
+			localvars::add("availability",($row['availability'] == 'available')?"Available":"Unavailable");
+			localvars::add("link",$engineVars['WVULSERVER']."/availableComputers/index.php?building="); //.$row['buildingID']."&amp;floor=".$row['floor'];
+			localvars::add("description",$description);
+			localvars::add("pubDate",$pubDate);
+			?>
 
-			$sql = sprintf("SELECT name FROM `buildings` WHERE building_id='%s'",
-				$engine->openDB->escape($row['building'])
-				);
-			$sqlResult2 = $engine->openDB->query($sql);
-			$building= ($sqlResult2['result'], MYSQL_ASSOC);
-
-			$sql = sprintf("SELECT floor_name FROM `floors` WHERE floor='%s'",
-				$engine->openDB->escape($row['building']),
-				$engine->openDB->escape($row['floor'])
-				);
-			$sqlResult2 = $engine->openDB->query($sql);
-			$floor= ($sqlResult2['result'], MYSQL_ASSOC);
-
-			$row['building'] = $building['name'];
-			$row['floor'] = $floor['floor_name'];
-			$description = nl2br("Building: ".$row['building']."\nFloor: ".$row['floor']."\nAvailability: ".$row['availability']);
-
-			?><item>
-				<title><?php echo $row['computer_name'] ?></title>
-				<building><?php echo $row['building'] ?></building>
-				<floor><?php echo $row['floor'] ?></floor>
-				<availability><?php echo $row['availability'] ?></availability>
-				<link><?php echo $link ?></link>
-				<guid><?php echo $guid ?></guid>
-				<description><![CDATA[ <?php echo $description ?> ]]></description>
-				<pubDate><?php echo $pubDate ?></pubDate>
+			<item>
+				<title>{local var="computerName"}</title>
+				<building>{local var="buildingName"}</building>
+				<floor>{local var="floorName"}</floor>
+				<availability>{local var="availability"}</availability>
+				<link>{local var="link"}</link>
+				<guid>{local var="link"}</guid>
+				<description><![CDATA[ {local var="description"} ]]></description>
+				<pubDate>{local var="pubDate"}</pubDate>
 			</item>
+			
 			<?php
 
 		}
 	}
 	?>
+
 </channel>
 </rss>
