@@ -6,48 +6,60 @@ require_once '/home/library/phpincludes/databaseConnectors/database.lib.wvu.edu.
 // recurseInsert("dbTableList.php","php");
 $engine->dbConnect("database","availableComputers",TRUE);
 
-$pubDate = date('r');
-?>
+$rssDate = date(DATE_RSS);
 
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+$rss = new syndication('availableComputers');
 
-<channel>
+$rss->syndicationMetadata('title',         'WVU Libraries: Available Computers');
+$rss->syndicationMetadata('link',          $engineVars['WVULSERVER'].'/availableComputers/rss.php');
+$rss->syndicationMetadata('description',   'WVU Libraries: Available Computers');
+$rss->syndicationMetadata('lastBuildDate', $rssDate);
+$rss->syndicationMetadata('language',      'en-us');
 
-	<title>WVU Libraries: Available Computers</title>
-	<link>{engine var="WVULSERVER"}/availableComputers/rss.php</link>
-	<atom:link href="{engine var="WVULSERVER"}/availableComputers/rss.php" rel="self" type="application/rss+xml" />
-	<description></description>
-	<lastBuildDate><?php echo $pubDate ?></lastBuildDate>
-	<language>en-us</language>
+$rss->addItemField('itemTitle');
+$rss->addItemField('itemLink');
+$rss->addItemField('itemPubdate');
+$rss->addItemField('itemDescription');
+$rss->addItemField('itemBuilding');
+$rss->addItemField('itemFloor');
+$rss->addItemField('itemAvailability');
 
-	<?php
-	$sql = sprintf("SELECT computers.name as computer_name, buildings.name as building_name, floors.name as floor_name, availabilities.name as availability FROM `computers` LEFT JOIN `buildings` ON computers.buildingID=buildings.ID LEFT JOIN tableNames ON tableNames.ID=computers.tableNameID LEFT JOIN floors ON floors.ID=tableNames.buildingFloorID LEFT JOIN availabilities ON availabilities.ID=computers.availabilityID ORDER BY buildings.name,floors.name,computers.name");
-	$sqlResult = $engine->openDB->query($sql);
+$sql = sprintf("SELECT `computers`.`name` AS `computerName`, `buildings`.`name` AS `buildingName`, `buildingFloors`.`ID` AS `mapID`, `floors`.`name` AS `floorName`,
+						`availabilities`.`name` AS `availability`, `computers`.`tableNameID` AS `tableName`, `computers`.`functionID`, `computers`.`buildingID`
+				FROM `computers`
+				LEFT JOIN `buildings` ON `buildings`.`ID`=`computers`.`buildingID`
+				LEFT JOIN `availabilities` ON `availabilities`.`ID`=`computers`.`availabilityID`
+				LEFT JOIN `tableNames` ON `tableNames`.`ID`=`computers`.`tableNameID`
+				LEFT JOIN `buildingFloors` ON `buildingFloors`.`ID`=`tableNames`.`buildingFloorID`
+				LEFT JOIN `floors` ON `floors`.`ID`=`buildingFloors`.`floorID`
+				ORDER BY `buildings`.`name`, `floors`.`name`, `computers`.`name`");
+$sqlResult = $engine->openDB->query($sql);
 
-	if ($sqlResult['result']) {
-
-		while ($row = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
-
-			$link = $engineVars['WVULSERVER']."/availableComputers/index.php?building="; //.$row['buildingID']."&amp;floor=".$row['floor'];
-
-			?>
-
-			<item>
-				<title><?php print $row['computer_name']; ?></title>
-				<building><?php print (is_empty($row['building_name']))?"":$row['building_name']; ?></building>
-				<floor><?php print (is_empty($row['floor_name']))?"":$row['floor_name']; ?></floor>
-				<availability><?php print ($row['availability'] == 'available')?"Available":"Unavailable"; ?></availability>
-				<link><?php print $link; ?></link>
-				<guid><?php print $link; ?></guid>
-				<description><![CDATA[ <?php print nl2br("Building: ".$row['building_name']."\nFloor: ".$row['floor_name']."\nAvailability: ".$row['availability']); ?> ]]></description>
-				<pubDate><?php print $pubDate; ?></pubDate>
-			</item>
-			
-			<?php
-
+if ($sqlResult['result']) {
+	while ($row = mysql_fetch_array($sqlResult['result'], MYSQL_ASSOC)) {
+		if (isnull($row['tableName'])) {
+			$link = $engineVars['WVULSERVER'].'/availableComputers/';
+			if ($row['functionID'] == '3') {
+				$link .= 'laptops.php?building='.$row['buildingID'];
+			}
 		}
-	}
-	?>
+		else {
+			$link = $engineVars['WVULSERVER']."/availableComputers/?map=".$row['mapID'];
+		}
 
-</channel>
-</rss>
+		$rss->addItem(
+			array(
+				'itemTitle'        => htmlSanitize($row['computerName']),
+				'itemLink'         => htmlSanitize($link),
+				'itemPubdate'      => $rssDate,
+				'itemDescription'  => htmlSanitize('Building: '.$row['buildingName']."\nFloor: ".$row['floorName']."\nAvailability: ".$row['availability']),
+				'itemBuilding'     => htmlSanitize($row['buildingName']),
+				'itemFloor'        => htmlSanitize($row['floorName']),
+				'itemAvailability' => htmlSanitize($row['availability']),
+				)
+			);
+	}
+}
+
+echo $rss->buildXML();
+?>
