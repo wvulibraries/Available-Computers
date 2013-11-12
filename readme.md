@@ -6,3 +6,6 @@ Admin interface provides way to manage which computers are in which buildings as
 
 Example:
 http://www.libraries.wvu.edu/services/computers/availableComputers/
+
+Requires EngineAPI 3.2
+https://github.com/wvulibraries/engineAPI/tree/engineAPI-3.x
