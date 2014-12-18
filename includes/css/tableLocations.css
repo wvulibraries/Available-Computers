@@ -3,7 +3,10 @@
 }
 
 
-
+.leftHalfRound {
+	height: 45px;
+	width: 25px;
+}
 .leftHalfRound .s {
 	position: absolute;
 	top: 33px;
@@ -41,7 +44,10 @@
 }
 
 
-
+.rightHalfRound {
+	height: 45px;
+	width: 25px;
+}
 .rightHalfRound .s {
 	position: absolute;
 	top: 33px;
@@ -80,6 +86,10 @@
 
 
 
+.upperHalfRound {
+	height: 25px;
+	width: 45px;
+}
 .upperHalfRound .w {
 	position: absolute;
 	top: 12px;
@@ -117,7 +127,10 @@
 }
 
 
-
+.lowerHalfRound {
+	height: 25px;
+	width: 45px;
+}
 .lowerHalfRound .w {
 	position: absolute;
 	top: 1px;
@@ -155,7 +168,10 @@
 }
 
 
-
+.leftTriple{
+	width: 30px;
+	height: 30px;
+}
 .leftTriple .ul {
 	position: absolute;
 	top: 0px;
@@ -176,6 +192,10 @@
 
 
 
+.rightTriple{
+	width: 30px;
+	height: 30px;
+}
 .rightTriple .l {
 	position: absolute;
 	top: 3px;
@@ -196,6 +216,10 @@
 
 
 
+.upperTriple{
+	width: 30px;
+	height: 30px;
+}
 .upperTriple .l {
 	position: absolute;
 	top: 14px;
@@ -216,6 +240,10 @@
 
 
 
+.lowerTriple{
+	width: 30px;
+	height: 30px;
+}
 .lowerTriple .u {
 	position: absolute;
 	top: 0px;
@@ -235,7 +263,10 @@
 }
 
 
-
+.sixTriple{
+	width: 30px;
+	height: 55px;
+}
 .sixTriple .n {
 	position: absolute;
 	top: 0px;
@@ -273,7 +304,10 @@
 }
 
 
-
+.lowerClassroomTable{
+	width: 22px;
+	height: 12px;
+}
 .lowerClassroomTable .l {
 	position: absolute;
 	top: 0px;
@@ -288,6 +322,10 @@
 
 
 
+.upperClassroomTable{
+	width: 22px;
+	height: 12px;
+}
 .upperClassroomTable .l {
 	position: absolute;
 	top: 0px;
@@ -301,7 +339,10 @@
 }
 
 
-
+.fourCarrel{
+	width: 22px;
+	height: 20px;
+}
 .fourCarrel .nw {
 	position: absolute;
 	top: 0px;
@@ -327,7 +368,10 @@
 }
 
 
-
+.sixCarrel{
+	width: 22px;
+	height: 30px;
+}
 .sixCarrel .nw {
 	position: absolute;
 	top: 0px;
@@ -365,7 +409,10 @@
 }
 
 
-
+.round{
+	width: 35px;
+	height: 32px;
+}
 .round .nw {
 	position: absolute;
 	top: 0px;
@@ -403,7 +450,10 @@
 }
 
 
-
+.evlclassroom{
+	width: 30px;
+	height: 10px;
+}
 .evlclassroom .l {
 	position: absolute;
 	top: 0px;
